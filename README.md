@@ -1,6 +1,6 @@
-# light_weight
+# Light Weight
 
-Proof of concept
+Proof of concept / starting project files
 
 ## Getting Started
 
