@@ -1,4 +1,0 @@
-#Mon Jun 05 19:18:18 EDT 2023
-base.0=/home/kyle/Documents/Code/SDD/light_weight/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
