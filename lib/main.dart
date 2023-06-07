@@ -24,9 +24,10 @@ class MyApp extends StatelessWidget {
           // Generate 15 widgets that display their index in the List.
           children: List.generate(15, (index) {
             return Center(
-              child: Text(
-                'Workout ${index+1}',
-                style: Theme.of(context).textTheme.headlineSmall,
+              child: ElevatedButton(
+                child: Text('Workout ${index+1}'),
+                onPressed: () {
+                },
               ),
             );
           }),
