@@ -9,3 +9,4 @@ Proof of concept / starting project files
 
 - Kyle Eng 
 - Josh Moskoff
+- Kaan Lus
