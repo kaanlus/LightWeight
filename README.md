@@ -8,3 +8,4 @@ Proof of concept / starting project files
 ### Authors
 
 - Kyle Eng 
+- Josh Moskoff
