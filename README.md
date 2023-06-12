@@ -12,3 +12,4 @@ Proof of concept / starting project files
 - Kaan Lus
 - Daniel Kirtman
 - Joshua Myers
+- Colin Farley
