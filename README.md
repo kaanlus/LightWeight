@@ -11,3 +11,4 @@ Proof of concept / starting project files
 - Josh Moskoff
 - Kaan Lus
 - Daniel Kirtman
+- Joshua Myers
