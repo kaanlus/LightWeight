@@ -30,6 +30,9 @@
  *
  */
 import 'package:flutter/material.dart';
+import 'package:timer_count_down/timer_controller.dart';
+import 'package:timer_count_down/timer_count_down.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -82,18 +85,95 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class WorkoutPage extends StatelessWidget {
-  WorkoutPage({super.key, required this.number});
+class WorkoutPage extends StatefulWidget {
   final int number;
+
+  /// Home page
+  WorkoutPage({
+    Key? key,
+    required this.number,
+  }) : super(key: key);
+
+  @override
+  WorkoutPageState createState() => WorkoutPageState();
+}
+
+class WorkoutPageState extends State<WorkoutPage> {
+  // Controller
+  final CountdownController _controller =
+    new CountdownController(autoStart: false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: Text('Workout ${this.number}'),
+      appBar: AppBar(
+        title: Text(
+          'Workout ${widget.number}',
         ),
-        body: Center(
-        child: Text('Workout Here')
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  // Start
+                  ElevatedButton(
+                    child: Text('Start'),
+                    onPressed: () {
+                      _controller.start();
+                    },
+                  ),
+                  // Pause
+                  ElevatedButton(
+                    child: Text('Pause'),
+                    onPressed: () {
+                      _controller.pause();
+                    },
+                  ),
+                  // Resume
+                  ElevatedButton(
+                    child: Text('Resume'),
+                    onPressed: () {
+                      _controller.resume();
+                    },
+                  ),
+                  // Stop
+                  ElevatedButton(
+                    child: Text('Restart'),
+                    onPressed: () {
+                      _controller.restart();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Countdown(
+              controller: _controller,
+              seconds: 10,
+              build: (_, double time) => Text(
+                time.toString(),
+                style: TextStyle(
+                  fontSize: 100,
+                ),
+              ),
+              interval: Duration(milliseconds: 100),
+              onFinished: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Timer is done!'),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
