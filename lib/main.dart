@@ -33,44 +33,64 @@ import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
-
+//starts app in the main function
 void main() => runApp(MyApp());
 
+
+/*
+ *
+ * Class for calling the main page
+ * title: Light Weight
+ * calls home page class with:
+ * home page title: Light Weight Home
+ *
+ */
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //title
       title: 'Light Weight',
+      //App bar color
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      //call to home page
       home: HomePage(title: 'Light Weight Home'),
     );
   }
 }
 
+/*
+ *
+ * Class of main page
+ * builds a two column scroll widget containing workout buttons that lead to new pages
+ * carries context of button pressed into new page
+ * New page contains a timer set to 30 seconds
+ *
+ */
 class HomePage extends StatelessWidget {
   HomePage({super.key, required this.title});
 
   final String title;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //title
         title: Text(title),
       ),
       body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
+        // Create a grid with 2 columns.
         crossAxisCount: 2,
         // Generate 15 widgets that display their index in the List.
         children: List.generate(15, (index) {
           return Center(
             child: ElevatedButton(
               child: Text('Workout ${index + 1}'),
+              //on button press take user to the workout page using the navigator
               onPressed: () {
                 Navigator.push(
                 context, MaterialPageRoute(
@@ -85,6 +105,12 @@ class HomePage extends StatelessWidget {
   }
 }
 
+
+/*
+ *
+ * Class that calls the stated workout page
+ *
+ */
 class WorkoutPage extends StatefulWidget {
   final int number;
 
@@ -98,8 +124,16 @@ class WorkoutPage extends StatefulWidget {
   WorkoutPageState createState() => WorkoutPageState();
 }
 
+/*
+ *
+ * Class of the workout page
+ * Workout page contains:
+ *    Timer of 30 seconds
+ *
+ */
 class WorkoutPageState extends State<WorkoutPage> {
-  // Controller
+
+  // Timer controller
   final CountdownController _controller =
     new CountdownController(autoStart: false);
 
@@ -108,11 +142,13 @@ class WorkoutPageState extends State<WorkoutPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+          //button context workout number
           'Workout ${widget.number}',
         ),
       ),
       body: Center(
         child: Column(
+          // Creates a row of control buttons that interact with the timer controller
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -155,8 +191,11 @@ class WorkoutPageState extends State<WorkoutPage> {
               ),
             ),
             Countdown(
+              // Timer controller
               controller: _controller,
-              seconds: 10,
+              // Timer duration
+              seconds: 30,
+              // Format stored time into text format
               build: (_, double time) => Text(
                 time.toString(),
                 style: TextStyle(
@@ -164,6 +203,7 @@ class WorkoutPageState extends State<WorkoutPage> {
                 ),
               ),
               interval: Duration(milliseconds: 100),
+              // On timer finish pop up with a notification
               onFinished: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
