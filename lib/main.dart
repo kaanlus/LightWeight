@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       title: 'Light Weight',
       //App bar color
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       //call to home page
       home: HomePage(title: 'Light Weight Home'),
@@ -70,17 +70,53 @@ class MyApp extends StatelessWidget {
  * New page contains a timer set to 30 seconds
  *
  */
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key, required this.title});
-
   final String title;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Display user profile',
+      style: optionStyle,
+    ),
+    Text(
+      'Display user lifting history',
+      style: optionStyle,
+    ),
+    Text(
+      'Display all workouts',
+      style: optionStyle,
+    ),
+    Text(
+      'Display user goals',
+      style: optionStyle,
+    ),
+    Text(
+      'Calculator with rep measurements',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         //title
-        title: Text(title),
+        title: Text(widget.title),
       ),
       body: GridView.count(
         // Create a grid with 2 columns.
@@ -100,6 +136,37 @@ class HomePage extends StatelessWidget {
             ),
           );
         }),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        /// Bottom nav bar consists of icons, labels, and the fixed
+        /// just makes it so that all buttons are visible
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.red,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Backlog',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Workouts',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.track_changes),
+            label: 'Goals ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calculate),
+            label: 'Rep Calculator',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
@@ -133,6 +200,10 @@ class WorkoutPage extends StatefulWidget {
  */
 class WorkoutPageState extends State<WorkoutPage> {
 
+  /*
+   * Timer Code sourced from GitHub:
+   *  https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
+   */
   // Timer controller
   final CountdownController _controller =
     new CountdownController(autoStart: false);
