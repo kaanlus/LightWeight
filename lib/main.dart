@@ -32,6 +32,8 @@
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:counter_button/counter_button.dart';
+
 
 //starts app in the main function
 void main() => runApp(MyApp());
@@ -79,7 +81,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -108,6 +110,46 @@ class _HomePageState extends State<HomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(_selectedIndex == 0) {
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => ProfilePage(),
+        ),
+        );
+      }else if(_selectedIndex == 1) {
+        /*
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => BacklogPage(),
+        ),
+        );
+         */
+      }
+      else if(_selectedIndex == 2) {
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => MyApp(),
+        ),
+        );
+      }
+      else if(_selectedIndex == 3) {
+        /*
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => Goals(),
+        ),
+        );
+         */
+      }
+      else if(_selectedIndex == 4) {
+        /*
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => RepCalc(),
+        ),
+        );
+         */
+      }
     });
   }
 
@@ -172,49 +214,63 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class ProfilePage extends StatefulWidget{
 
-/*
- *
- * Class that calls the stated workout page
- *
- */
-class WorkoutPage extends StatefulWidget {
-  final int number;
 
-  /// Home page
-  WorkoutPage({
-    Key? key,
-    required this.number,
-  }) : super(key: key);
+  ProfilePage({Key? key,}) : super(key: key);
 
   @override
-  WorkoutPageState createState() => WorkoutPageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-/*
- *
- * Class of the workout page
- * Workout page contains:
- *    Timer of 30 seconds
- *
- */
-class WorkoutPageState extends State<WorkoutPage> {
+class ProfilePageState extends State<ProfilePage>{
 
-  /*
-   * Timer Code sourced from GitHub:
-   *  https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
-   */
-  // Timer controller
-  final CountdownController _controller =
-    new CountdownController(autoStart: false);
-
+  final String profilename = 'default user 1';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           //button context workout number
-          'Workout ${widget.number}',
+          '$profilename\'s profile',
+        ),
+      ),
+    );
+  }
+}
+
+class ExercisePage extends StatefulWidget{
+
+  final int number;
+
+  /// Home page
+  ExercisePage({
+    Key? key,
+    required this.number,
+  }) : super(key: key);
+
+  @override
+  ExercisePageState createState() => ExercisePageState();
+
+}
+
+class ExercisePageState extends State<ExercisePage>{
+  /*
+   * Timer Code sourced from GitHub:
+   *  https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
+   */
+  // Timer controller
+  final CountdownController _controller =
+  new CountdownController(autoStart: false);
+
+  int _counterValue = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          //button context workout number
+          'Exercise ${widget.number}',
         ),
       ),
       body: Center(
@@ -223,6 +279,8 @@ class WorkoutPageState extends State<WorkoutPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Text('Set Timer',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 80),),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -283,8 +341,92 @@ class WorkoutPageState extends State<WorkoutPage> {
                 );
               },
             ),
+            Text('Sets Done',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),),
+            CounterButton(
+              loading: false,
+              onChange: (int val) {
+                setState(() {
+                  _counterValue = val;
+                });
+              },
+              count: _counterValue,
+              countColor: Colors.red,
+              buttonColor: Colors.red,
+              progressColor: Colors.red,
+            ),
+            Text('~~ exercise description goes here ~~',
+              style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),),
           ],
         ),
+      ),
+
+    );
+  }
+
+}
+/*
+ *
+ * Class that calls the stated workout page
+ *
+ */
+class WorkoutPage extends StatefulWidget {
+  final int number;
+
+  /// Home page
+  WorkoutPage({
+    Key? key,
+    required this.number,
+  }) : super(key: key);
+
+  @override
+  WorkoutPageState createState() => WorkoutPageState();
+}
+
+/*
+ *
+ * Class of the workout page
+ * Workout page contains:
+ *    Timer of 30 seconds
+ *
+ */
+class WorkoutPageState extends State<WorkoutPage> {
+
+  /*
+   * Timer Code sourced from GitHub:
+   *  https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
+   */
+  // Timer controller
+  final CountdownController _controller =
+    new CountdownController(autoStart: false);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          //button context workout number
+          'Workout ${widget.number}',
+        ),
+      ),
+      body: GridView.count(
+        // Create a grid with 2 columns.
+        crossAxisCount: 3,
+        // Generate 15 widgets that display their index in the List.
+        children: List.generate(9, (index) {
+          return Center(
+            child: ElevatedButton(
+              child: Text('Exercise ${index + 1}'),
+              //on button press take user to the workout page using the navigator
+              onPressed: () {
+                Navigator.push(
+                  context, MaterialPageRoute(
+                  builder: (context) => ExercisePage(number: index+1),
+                ),
+                );},
+            ),
+          );
+        }),
       ),
     );
   }
