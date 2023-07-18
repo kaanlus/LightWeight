@@ -388,6 +388,7 @@ class ExercisePageState extends State<ExercisePage>{
                     child: Text('Restart'),
                     onPressed: () {
                       _controller.restart();
+                      _controller.pause();
                     },
                   ),
                 ],
@@ -408,6 +409,8 @@ class ExercisePageState extends State<ExercisePage>{
               interval: Duration(milliseconds: 100),
               // On timer finish pop up with a notification
               onFinished: () {
+                _controller.restart();
+                _controller.pause();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Timer is done!'),
