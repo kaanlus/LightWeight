@@ -424,7 +424,10 @@ class ExercisePageState extends State<ExercisePage>{
               loading: false,
               onChange: (int val) {
                 setState(() {
+                  val < 0?
+                  _counterValue = 0 :
                   _counterValue = val;
+
                 });
               },
               count: _counterValue,
