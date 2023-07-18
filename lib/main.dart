@@ -82,6 +82,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
+  int numWorkouts = 9;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -160,25 +161,98 @@ class _HomePageState extends State<HomePage> {
         //title
         title: Text(widget.title),
       ),
-      body: GridView.count(
-        // Create a grid with 2 columns.
-        crossAxisCount: 2,
-        // Generate 15 widgets that display their index in the List.
-        children: List.generate(15, (index) {
-          return Center(
-            child: ElevatedButton(
-              child: Text('Workout ${index + 1}'),
-              //on button press take user to the workout page using the navigator
-              onPressed: () {
-                Navigator.push(
-                context, MaterialPageRoute(
-                builder: (context) => WorkoutPage(number: index+1),
-              ),
-              );},
-            ),
-          );
-        }),
-      ),
+      body:
+          Stack( children :[
+              Align(
+                alignment: Alignment.topCenter,
+                child:
+                Padding(
+                  padding: EdgeInsets.only(top: 130.0 ),
+                  child: ElevatedButton( child: Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) => WorkoutPage(number: -1),
+                  ),);}),),),
+
+              Align(
+                  alignment: Alignment.topCenter,
+                  child:
+                  Padding(
+                        padding: EdgeInsets.only(top: 30.0),
+                        child: Text('Workout',
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 70),),),),
+
+              Align(
+                  alignment: Alignment.topCenter,
+                  child:
+                  Padding(
+                      padding: EdgeInsets.only(top: 200.0),
+                      child: Text('My Templates',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),),),
+
+              Align(
+                  alignment: Alignment.topCenter,
+                  child:
+                  Padding(
+                        padding: EdgeInsets.only( left: 10, right: 10, top: 255.0, bottom: 205.0),
+                        child: GridView.count(
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          // Create a grid with 3 columns.
+                          crossAxisCount: 3,
+                          // Generate 15 widgets that display their index in the List.
+                          children: List.generate(numWorkouts, (index) {
+                            return ElevatedButton(
+                                child: Text('Workout ${index + 1}'),
+                                //on button press take user to the workout page using the navigator
+                                onPressed: () {
+                                  Navigator.push(
+                                  context, MaterialPageRoute(
+                                  builder: (context) => WorkoutPage(number: index+1),
+                                ),
+                                );},
+                            );
+                          }),
+                        ),
+                      ),),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child:
+                  Padding(
+                          padding: EdgeInsets.only(top: 540.0),
+                          child: Text('Workout Templates',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),),),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child:
+                      Padding( padding: EdgeInsets.only( left: 10, right: 10 ,top: 590.0),
+                      child:
+                       GridView.count(
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          // Create a grid with 2 columns.
+                          crossAxisCount: 3,
+                          children: [
+                            ElevatedButton( child: Text('Chest and Triceps'), onPressed: () {
+                              Navigator.push(
+                              context, MaterialPageRoute(
+                              builder: (context) => WorkoutPage(number: -1),
+                            ),
+                            );}),
+                            ElevatedButton( child: Text('Legs'), onPressed: () {
+                              Navigator.push(
+                                context, MaterialPageRoute(
+                                builder: (context) => WorkoutPage(number: -1),
+                              ),
+                              );}),
+                            ElevatedButton( child: Text('Back and Biceps'), onPressed: () {
+                              Navigator.push(
+                                context, MaterialPageRoute(
+                                builder: (context) => WorkoutPage(number: -1),
+                              ),
+                              );}),
+                          ],),
+                        )),
+          ]),
       bottomNavigationBar: BottomNavigationBar(
         /// Bottom nav bar consists of icons, labels, and the fixed
         /// just makes it so that all buttons are visible
@@ -404,10 +478,11 @@ class WorkoutPageState extends State<WorkoutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: widget.number >= 0?
+        Text(
           //button context workout number
-          'Workout ${widget.number}',
-        ),
+          'Workout ${widget.number}'):
+            Text('New Workout'),
       ),
       body: GridView.count(
         // Create a grid with 2 columns.
