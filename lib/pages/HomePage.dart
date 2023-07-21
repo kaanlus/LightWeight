@@ -3,6 +3,7 @@ import 'package:lightweight/pages/ProfilePage.dart';
 import 'package:lightweight/main.dart';
 import 'package:lightweight/pages/WorkoutPage.dart';
 import 'package:lightweight/util/Workout.dart';
+import 'package:lightweight/util/Profile.dart';
 import 'package:lightweight/util/DefaultProfileInit.dart';
 
 /*
@@ -23,7 +24,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
-  List<WorkoutTemplate> DefaultTemplates = Populate();
+  Profile defaultUser = CreateDefault();
+  List<WorkoutTemplate> DefaultTemplates = PopulateDefault();
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
               // Generate 15 widgets that display their index in the List.
               children: List.generate(DefaultTemplates.length, (index) {
                 return ElevatedButton(
-                  child: Text(DefaultTemplates[index].Get_name()),
+                  child: Text(defaultUser.Saved_templates[index].Get_name()),
                   //on button press take user to the workout page using the navigator
                   onPressed: () {
                     Navigator.push(
