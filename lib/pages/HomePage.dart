@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lightweight/pages/ProfilePage.dart';
 import 'package:lightweight/main.dart';
 import 'package:lightweight/pages/WorkoutPage.dart';
+import 'package:lightweight/util/Workout.dart';
+import 'package:lightweight/util/DefaultProfileInit.dart';
 
 /*
  *
@@ -21,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
-  int numWorkouts = 9;
+  List<WorkoutTemplate> DefaultTemplates = Populate();
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -139,9 +141,9 @@ class _HomePageState extends State<HomePage> {
               // Create a grid with 3 columns.
               crossAxisCount: 3,
               // Generate 15 widgets that display their index in the List.
-              children: List.generate(numWorkouts, (index) {
+              children: List.generate(DefaultTemplates.length, (index) {
                 return ElevatedButton(
-                  child: Text('Workout ${index + 1}'),
+                  child: Text(DefaultTemplates[index].Get_name()),
                   //on button press take user to the workout page using the navigator
                   onPressed: () {
                     Navigator.push(
@@ -171,19 +173,19 @@ class _HomePageState extends State<HomePage> {
                 // Create a grid with 2 columns.
                 crossAxisCount: 3,
                 children: [
-                  ElevatedButton( child: Text('Chest and Triceps'), onPressed: () {
+                  ElevatedButton( child: Text(DefaultTemplates[0].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(number: -1),
                     ),
                     );}),
-                  ElevatedButton( child: Text('Legs'), onPressed: () {
+                  ElevatedButton( child: Text(DefaultTemplates[1].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(number: -1),
                     ),
                     );}),
-                  ElevatedButton( child: Text('Back and Biceps'), onPressed: () {
+                  ElevatedButton( child: Text(DefaultTemplates[2].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(number: -1),
