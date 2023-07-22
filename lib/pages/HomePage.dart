@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
       if(_selectedIndex == 0) {
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => ProfilePage(),
+          builder: (context) => ProfilePage(pf: defaultUser),
         ),
         );
       }else if(_selectedIndex == 1) {
