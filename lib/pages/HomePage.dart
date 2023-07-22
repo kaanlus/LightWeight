@@ -111,9 +111,10 @@ class _HomePageState extends State<HomePage> {
           child:
           Padding(
             padding: EdgeInsets.only(top: 130.0 ),
-            child: ElevatedButton( child: Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {Navigator.push(
+            child: ElevatedButton( child: Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {
+              Navigator.push(
               context, MaterialPageRoute(
-              builder: (context) => WorkoutPage(number: -1),
+              builder: (context) => WorkoutPage(index: -1, pf: defaultUser),
             ),);}),),),
 
         Align(
@@ -150,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(number: index+1),
+                      builder: (context) => WorkoutPage(index: index, pf: defaultUser),
                     ),
                     );},
                 );
@@ -178,19 +179,19 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton( child: Text(DefaultTemplates[0].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(number: -1),
+                      builder: (context) => WorkoutPage(index: -2, pf: defaultUser),
                     ),
                     );}),
                   ElevatedButton( child: Text(DefaultTemplates[1].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(number: -1),
+                      builder: (context) => WorkoutPage(index: -3, pf: defaultUser),
                     ),
                     );}),
                   ElevatedButton( child: Text(DefaultTemplates[2].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(number: -1),
+                      builder: (context) => WorkoutPage(index: -4, pf: defaultUser),
                     ),
                     );}),
                 ],),
