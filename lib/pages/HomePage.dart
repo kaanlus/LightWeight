@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
-  Profile defaultUser = CreateDefault();
+  Profile user = CreateDefault();
   List<WorkoutTemplate> DefaultTemplates = PopulateDefault();
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
       if(_selectedIndex == 0) {
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => ProfilePage(pf: defaultUser),
+          builder: (context) => ProfilePage(pf: user),
         ),
         );
       }else if(_selectedIndex == 1) {
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             child: ElevatedButton( child: Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {
               Navigator.push(
               context, MaterialPageRoute(
-              builder: (context) => WorkoutPage(index: -1, pf: defaultUser),
+              builder: (context) => WorkoutPage(index: -1, pf: user),
             ),);}),),),
 
         Align(
@@ -146,12 +146,12 @@ class _HomePageState extends State<HomePage> {
               // Generate 15 widgets that display their index in the List.
               children: List.generate(DefaultTemplates.length, (index) {
                 return ElevatedButton(
-                  child: Text(defaultUser.Saved_templates[index].Get_name()),
+                  child: Text(user.Saved_templates[index].Get_name()),
                   //on button press take user to the workout page using the navigator
                   onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(index: index, pf: defaultUser),
+                      builder: (context) => WorkoutPage(index: index, pf: user),
                     ),
                     );},
                 );
@@ -179,19 +179,19 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton( child: Text(DefaultTemplates[0].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(index: -2, pf: defaultUser),
+                      builder: (context) => WorkoutPage(index: -2, pf: user),
                     ),
                     );}),
                   ElevatedButton( child: Text(DefaultTemplates[1].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(index: -3, pf: defaultUser),
+                      builder: (context) => WorkoutPage(index: -3, pf: user),
                     ),
                     );}),
                   ElevatedButton( child: Text(DefaultTemplates[2].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => WorkoutPage(index: -4, pf: defaultUser),
+                      builder: (context) => WorkoutPage(index: -4, pf: user),
                     ),
                     );}),
                 ],),

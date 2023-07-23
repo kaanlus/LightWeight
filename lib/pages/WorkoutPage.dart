@@ -73,20 +73,59 @@ class WorkoutPageState extends State<WorkoutPage> {
                 padding: EdgeInsets.only(top: 30.0),
                 child: Text(workoutTitle,
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),),),
-            /*
-            GridView.count(
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              // Create a grid with 3 columns.
-              crossAxisCount: 1,
-              // Generate 15 widgets that display their index in the List.
-              children: List.generate(Exercises.length, (index) {
-                return ;
-              }
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.only(top: 90.0, bottom: 185.0),
+              child:
+                GridView.count(
+                  crossAxisCount: 1,
+                  childAspectRatio: (500 / 320),
+                  // Generate
+                  children:
+                    List.generate(Exercises.length, (index) {
+                      return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(Exercises[index].Exercise_name,
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),),
+                            Row(
+                              children: [
+                                Padding(padding: EdgeInsets.only(left: 30.0 , top: 10),
+                                child:
+                                  Text('Sets',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                                Padding(padding: EdgeInsets.only(left: 60.0 , top: 10),
+                                  child:
+                                  Text('Reps',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                                Padding(padding: EdgeInsets.only(left: 60.0 , top: 10),
+                                  child:
+                                  Text('Weight',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                              ]
+                            ),
 
-             */
+                            Column(
+                            children:
+                              List.generate(Exercises[index].Set_goal, (index) {
+                                return
+                                  Row(
+                                      children: [
+                                        Padding(padding: EdgeInsets.only(left: 30.0 , top: 20),
+                                        child:
+                                          Text('Set ${index + 1}',
+                                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),),),
+                                        //add input boxes
+                                      ],
+                                  );
+                              }
+                              ),
+                            ),
+                          ]
+                      );
+                    }
+                  ),
+                ),
+            ),
       ]),
     );
   }
