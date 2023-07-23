@@ -106,15 +106,46 @@ class WorkoutPageState extends State<WorkoutPage> {
 
                             Column(
                             children:
-                              List.generate(Exercises[index].Set_goal, (index) {
+                              List.generate(4, (index) {
                                 return
                                   Row(
                                       children: [
-                                        Padding(padding: EdgeInsets.only(left: 30.0 , top: 20),
+                                        Padding(padding: EdgeInsets.only(left: 30.0 , top: 15, bottom: 15),
                                         child:
                                           Text('Set ${index + 1}',
                                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),),),
-                                        //add input boxes
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 55),
+                                          child:
+                                          SizedBox(
+                                              width: 75,
+                                              height: 30,
+                                              child: TextFormField(
+                                                      textAlign: TextAlign.center,
+                                                      decoration: InputDecoration(
+                                                      contentPadding: EdgeInsets.all(0),
+                                                      border: OutlineInputBorder(),
+                                                      hintText: 'Reps',
+                                                      ),
+                                              ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 38),
+                                          child:
+                                          SizedBox(
+                                            width: 75,
+                                            height: 30,
+                                            child: TextFormField(
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.all(0),
+                                                border: OutlineInputBorder(),
+                                                hintText: 'Weight',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                   );
                               }
