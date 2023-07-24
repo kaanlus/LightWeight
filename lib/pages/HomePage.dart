@@ -6,6 +6,9 @@ import 'package:lightweight/util/Workout.dart';
 import 'package:lightweight/util/Profile.dart';
 import 'package:lightweight/util/DefaultProfileInit.dart';
 
+import 'GoalPage.dart';
+import 'RepCalcPage.dart';
+
 /*
  *
  * Class of main page
@@ -77,22 +80,20 @@ class _HomePageState extends State<HomePage> {
         );
       }
       else if(_selectedIndex == 3) {
-        /*
+
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => Goals(),
+          builder: (context) => GoalPage(pf: user),
         ),
         );
-         */
+
       }
       else if(_selectedIndex == 4) {
-        /*
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => RepCalc(),
+          builder: (context) => RepCalcPage(),
         ),
         );
-         */
       }
     });
   }

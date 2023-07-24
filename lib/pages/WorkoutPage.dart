@@ -19,7 +19,6 @@ class WorkoutPage extends StatefulWidget {
   //index = -2 --default template 1
   //index = -3 --default template 2
   //index = -4 --default template 3
-  /// Home page
   WorkoutPage({
     Key? key,
     required this.index,
@@ -106,7 +105,7 @@ class WorkoutPageState extends State<WorkoutPage> {
 
                             Column(
                             children:
-                              List.generate(4, (index) {
+                              List.generate(Exercises[index].Set_goal, (index) {
                                 return
                                   Row(
                                       children: [
@@ -123,9 +122,9 @@ class WorkoutPageState extends State<WorkoutPage> {
                                               child: TextFormField(
                                                       textAlign: TextAlign.center,
                                                       decoration: InputDecoration(
-                                                      contentPadding: EdgeInsets.all(0),
-                                                      border: OutlineInputBorder(),
-                                                      hintText: 'Reps',
+                                                        contentPadding: EdgeInsets.all(0),
+                                                        border: OutlineInputBorder(),
+                                                        hintText: 'Reps',
                                                       ),
                                               ),
                                           ),
