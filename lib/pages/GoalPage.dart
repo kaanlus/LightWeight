@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../util/Profile.dart';
 
+/*
+ * -----------------------------------------------
+ * Goals Page
+ * Contents:
+ *  - Active Goals
+ *  - Previous Goals
+ *
+ * -----------------------------------------------
+ */
 class GoalPage extends StatefulWidget {
 
   GoalPage({
@@ -20,17 +29,17 @@ class GoalPageState extends State<GoalPage> {
     Profile pro = widget.pf;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Goals'),
+        title: const Text('Goals'),
       ),
       body: Stack(
         children : [
-          Align(
+          const Align(
           alignment: Alignment.topCenter,
           child:
           Padding(
             padding: EdgeInsets.only(top: 30.0),
             child: Text('Goals',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),),),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),),),
         ]
       ),
     );

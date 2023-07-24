@@ -35,19 +35,20 @@ import 'package:lightweight/pages/HomePage.dart';
 
 
 //starts app in the main function
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 
 /*
+ * -----------------------------------------------
+ * Main Page
+ * Contents:
+ *  - App start
  *
- * Class for calling the main page
- * title: Light Weight
- * calls home page class with:
- * home page title: Light Weight Home
- *
+ * -----------------------------------------------
  */
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       //call to home page
-      home: HomePage(title: 'Light Weight Home'),
+      home: const HomePage(title: 'Light Weight Home'),
     );
   }
 }

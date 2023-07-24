@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lightweight/pages/ExercisePage.dart';
 import 'package:lightweight/util/Exercise.dart';
 import 'package:lightweight/util/Profile.dart';
 
@@ -7,9 +6,13 @@ import '../util/DefaultProfileInit.dart';
 import '../util/Workout.dart';
 
 /*
+ * -----------------------------------------------
+ * Workout Page
+ * Contents:
+ *  - List of exercises in the workout and fields for entry data on each set
  *
- * Class that calls the stated workout page
  *
+ * -----------------------------------------------
  */
 class WorkoutPage extends StatefulWidget {
 
@@ -19,7 +22,7 @@ class WorkoutPage extends StatefulWidget {
   //index = -2 --default template 1
   //index = -3 --default template 2
   //index = -4 --default template 3
-  WorkoutPage({
+  const WorkoutPage({
     Key? key,
     required this.index,
     required this.pf,
@@ -31,97 +34,124 @@ class WorkoutPage extends StatefulWidget {
   WorkoutPageState createState() => WorkoutPageState();
 }
 
-/*
- *
- * Class of the workout page
- * Workout page contains:
- *
- *
- */
+
 class WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
-    List<WorkoutTemplate> DefaultTemplates = PopulateDefault();
+
+    ///populate default template workouts
+    List<WorkoutTemplate> defaultTemplates = PopulateDefault();
+
+    ///Workout title init
     String workoutTitle = '';
-    List<ExerciseTemplate> Exercises = [];
+
+    ///List of exercises to render into page
+    List<ExerciseTemplate> exercises = [];
+
+    ///Current profile
     Profile pro = widget.pf;
+
+    ///If else tree to select title of workout based on context from last page
     if(widget.index >= 0){
       workoutTitle = pro.Saved_templates[widget.index].Workout_name;
-      Exercises = pro.Saved_templates[widget.index].Exercise_templates;
+      exercises = pro.Saved_templates[widget.index].Exercise_templates;
     } else if(widget.index == -1){
       workoutTitle = 'New Workout';
     } else if(widget.index == -2){
-      workoutTitle = DefaultTemplates[0].Workout_name;
-      Exercises = DefaultTemplates[0].Exercise_templates;
+      workoutTitle = defaultTemplates[0].Workout_name;
+      exercises = defaultTemplates[0].Exercise_templates;
     } else if(widget.index == -3){
-      workoutTitle = DefaultTemplates[1].Workout_name;
-      Exercises = DefaultTemplates[1].Exercise_templates;
+      workoutTitle = defaultTemplates[1].Workout_name;
+      exercises = defaultTemplates[1].Exercise_templates;
     } else if(widget.index == -4){
-      workoutTitle = DefaultTemplates[2].Workout_name;
-      Exercises = DefaultTemplates[2].Exercise_templates;
+      workoutTitle = defaultTemplates[2].Workout_name;
+      exercises = defaultTemplates[2].Exercise_templates;
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(workoutTitle),
       ),
       body: Stack( children : [
+
+            ///Centered workout title
             Align(
               alignment: Alignment.topCenter,
               child:
               Padding(
-                padding: EdgeInsets.only(top: 30.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Text(workoutTitle,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),),),),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                ),
+              ),
+            ),
+
+            ///Exercise block
             Padding(
-              padding: EdgeInsets.only(top: 90.0, bottom: 185.0),
+              padding: const EdgeInsets.only(top: 90.0, bottom: 185.0),
               child:
                 GridView.count(
                   crossAxisCount: 1,
                   childAspectRatio: (500 / 320),
-                  // Generate
                   children:
-                    List.generate(Exercises.length, (index) {
+                    ///List of entries for each set of an exercise
+                    List.generate(exercises.length, (index) {
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(Exercises[index].Exercise_name,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),),
-                            Row(
+                            Text(exercises[index].Exercise_name,
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                            ),
+                            ///Row containing labels for each entry point
+                            const Row(
                               children: [
                                 Padding(padding: EdgeInsets.only(left: 30.0 , top: 10),
                                 child:
                                   Text('Sets',
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                ),
                                 Padding(padding: EdgeInsets.only(left: 60.0 , top: 10),
                                   child:
                                   Text('Reps',
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                ),
                                 Padding(padding: EdgeInsets.only(left: 60.0 , top: 10),
                                   child:
                                   Text('Weight',
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                ),
                               ]
                             ),
 
+                            ///generates a set of entry fields for each set of a an exercise
                             Column(
                             children:
-                              List.generate(Exercises[index].Set_goal, (index) {
+                              List.generate(exercises[index].Set_goal, (index) {
                                 return
                                   Row(
                                       children: [
-                                        Padding(padding: EdgeInsets.only(left: 30.0 , top: 15, bottom: 15),
-                                        child:
-                                          Text('Set ${index + 1}',
-                                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),),),
+                                        ///Numbered set label
                                         Padding(
-                                          padding: EdgeInsets.only(left: 55),
+                                          padding: const EdgeInsets.only(left: 30.0 , top: 15, bottom: 15),
+                                          child:
+                                            Text('Set ${index + 1}',
+                                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                            ),
+                                        ),
+
+                                        ///Input field for reps done
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 55),
                                           child:
                                           SizedBox(
                                               width: 75,
                                               height: 30,
                                               child: TextFormField(
                                                       textAlign: TextAlign.center,
-                                                      decoration: InputDecoration(
+                                                      decoration: const InputDecoration(
                                                         contentPadding: EdgeInsets.all(0),
                                                         border: OutlineInputBorder(),
                                                         hintText: 'Reps',
@@ -129,15 +159,17 @@ class WorkoutPageState extends State<WorkoutPage> {
                                               ),
                                           ),
                                         ),
+
+                                        ///Input field for weight used
                                         Padding(
-                                          padding: EdgeInsets.only(left: 38),
+                                          padding: const EdgeInsets.only(left: 38),
                                           child:
                                           SizedBox(
                                             width: 75,
                                             height: 30,
                                             child: TextFormField(
                                               textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 contentPadding: EdgeInsets.all(0),
                                                 border: OutlineInputBorder(),
                                                 hintText: 'Weight',

@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:lightweight/pages/HomePage.dart';
 
 import '../util/Profile.dart';
+
+/*
+ * -----------------------------------------------
+ * Profile Page
+ * Contents:
+ *
+ *
+ * -----------------------------------------------
+ */
 class ProfilePage extends StatefulWidget{
 
 
-  ProfilePage({
+  const ProfilePage({
     Key? key,
     required this.pf,
   }) : super(key: key);
+
+  ///Passed in profile
   final Profile pf;
 
   @override

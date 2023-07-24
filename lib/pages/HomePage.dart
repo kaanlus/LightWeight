@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lightweight/pages/ProfilePage.dart';
-import 'package:lightweight/main.dart';
 import 'package:lightweight/pages/WorkoutPage.dart';
 import 'package:lightweight/util/Workout.dart';
 import 'package:lightweight/util/Profile.dart';
@@ -10,15 +9,17 @@ import 'GoalPage.dart';
 import 'RepCalcPage.dart';
 
 /*
+ * -----------------------------------------------
+ * Home Page
+ * Contents:
+ *  - New workout template button
+ *  - List of workout templates
+ *  - List of 3 default templates
  *
- * Class of main page
- * builds a two column scroll widget containing workout buttons that lead to new pages
- * carries context of button pressed into new page
- * New page contains a timer set to 30 seconds
- *
+ * -----------------------------------------------
  */
 class HomePage extends StatefulWidget {
-  HomePage({super.key, required this.title});
+  const HomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -26,44 +27,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 2;
-  Profile user = CreateDefault();
-  List<WorkoutTemplate> DefaultTemplates = PopulateDefault();
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Display user profile',
-      style: optionStyle,
-    ),
-    Text(
-      'Display user lifting history',
-      style: optionStyle,
-    ),
-    Text(
-      'Display all workouts',
-      style: optionStyle,
-    ),
-    Text(
-      'Display user goals',
-      style: optionStyle,
-    ),
-    Text(
-      'Calculator with rep measurements',
-      style: optionStyle,
-    ),
-  ];
 
+  ///index of bottom bar selection on open
+  int _selectedIndex = 2;
+
+  ///populates default user profile for testing and demo
+  Profile user = CreateDefault();
+
+  ///populates default templates
+  List<WorkoutTemplate> defaultTemplates = PopulateDefault();
+
+  ///Decides what happens when bottom navigation bar is selected
   void _onItemTapped(int index) {
     setState(() {
+
+      ///index of button rendered as selected/previously selected
       _selectedIndex = index;
+
+      ///Profile page button
       if(_selectedIndex == 0) {
         Navigator.push(
           context, MaterialPageRoute(
           builder: (context) => ProfilePage(pf: user),
         ),
         );
-      }else if(_selectedIndex == 1) {
+      }
+
+      ///Workout log button
+      else if(_selectedIndex == 1) {
         /*
         Navigator.push(
           context, MaterialPageRoute(
@@ -72,13 +63,13 @@ class _HomePageState extends State<HomePage> {
         );
          */
       }
+
+      ///Workouts button
       else if(_selectedIndex == 2) {
-        Navigator.push(
-          context, MaterialPageRoute(
-          builder: (context) => MyApp(),
-        ),
-        );
+        ///empty space
       }
+
+      ///Goal page button
       else if(_selectedIndex == 3) {
 
         Navigator.push(
@@ -88,6 +79,8 @@ class _HomePageState extends State<HomePage> {
         );
 
       }
+
+      ///1RM Calculator page
       else if(_selectedIndex == 4) {
         Navigator.push(
           context, MaterialPageRoute(
@@ -107,45 +100,57 @@ class _HomePageState extends State<HomePage> {
       ),
       body:
       Stack( children :[
-        Align(
-          alignment: Alignment.topCenter,
-          child:
-          Padding(
-            padding: EdgeInsets.only(top: 130.0 ),
-            child: ElevatedButton( child: Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {
-              Navigator.push(
-              context, MaterialPageRoute(
-              builder: (context) => WorkoutPage(index: -1, pf: user),
-            ),);}),),),
 
-        Align(
+        ///Centered workout label
+        const Align(
           alignment: Alignment.topCenter,
           child:
           Padding(
             padding: EdgeInsets.only(top: 30.0),
             child: Text('Workout',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 70),),),),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70),
+            ),
+          ),
+        ),
 
+        ///Empty workout button
         Align(
+          alignment: Alignment.topCenter,
+          child:
+          Padding(
+            padding: const EdgeInsets.only(top: 130.0 ),
+            child: ElevatedButton( child: const Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {
+              Navigator.push(
+              context, MaterialPageRoute(
+              builder: (context) => WorkoutPage(index: -1, pf: user),
+            ),);}),),),
+
+
+        ///Users saved templates title
+        const Align(
           alignment: Alignment.topCenter,
           child:
           Padding(
             padding: EdgeInsets.only(top: 200.0),
             child: Text('My Templates',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),),),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+          ),
+        ),
 
+        ///Renders buttons navigating a users stored templates
         Align(
           alignment: Alignment.topCenter,
           child:
           Padding(
-            padding: EdgeInsets.only( left: 10, right: 10, top: 255.0, bottom: 205.0),
+            padding: const EdgeInsets.only( left: 10, right: 10, top: 255.0, bottom: 205.0),
             child: GridView.count(
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               // Create a grid with 3 columns.
               crossAxisCount: 3,
               // Generate 15 widgets that display their index in the List.
-              children: List.generate(DefaultTemplates.length, (index) {
+              children: List.generate(defaultTemplates.length, (index) {
                 return ElevatedButton(
                   child: Text(user.Saved_templates[index].Get_name()),
                   //on button press take user to the workout page using the navigator
@@ -158,18 +163,26 @@ class _HomePageState extends State<HomePage> {
                 );
               }),
             ),
-          ),),
-        Align(
+          ),
+        ),
+
+        ///Default templates title
+        const Align(
           alignment: Alignment.topCenter,
           child:
           Padding(
             padding: EdgeInsets.only(top: 540.0),
             child: Text('Workout Templates',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),),),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+          ),
+        ),
+
+        ///Renders the three default workout templates
         Align(
             alignment: Alignment.topCenter,
             child:
-            Padding( padding: EdgeInsets.only( left: 10, right: 10 ,top: 590.0),
+            Padding( padding: const EdgeInsets.only( left: 10, right: 10 ,top: 590.0),
               child:
               GridView.count(
                 mainAxisSpacing: 10,
@@ -177,19 +190,19 @@ class _HomePageState extends State<HomePage> {
                 // Create a grid with 2 columns.
                 crossAxisCount: 3,
                 children: [
-                  ElevatedButton( child: Text(DefaultTemplates[0].Get_name()), onPressed: () {
+                  ElevatedButton( child: Text(defaultTemplates[0].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(index: -2, pf: user),
                     ),
                     );}),
-                  ElevatedButton( child: Text(DefaultTemplates[1].Get_name()), onPressed: () {
+                  ElevatedButton( child: Text(defaultTemplates[1].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(index: -3, pf: user),
                     ),
                     );}),
-                  ElevatedButton( child: Text(DefaultTemplates[2].Get_name()), onPressed: () {
+                  ElevatedButton( child: Text(defaultTemplates[2].Get_name()), onPressed: () {
                     Navigator.push(
                       context, MaterialPageRoute(
                       builder: (context) => WorkoutPage(index: -4, pf: user),
@@ -198,6 +211,8 @@ class _HomePageState extends State<HomePage> {
                 ],),
             )),
       ]),
+
+      ///Render options for the bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         /// Bottom nav bar consists of icons, labels, and the fixed
         /// just makes it so that all buttons are visible
