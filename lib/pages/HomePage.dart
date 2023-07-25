@@ -119,11 +119,18 @@ class _HomePageState extends State<HomePage> {
           child:
           Padding(
             padding: const EdgeInsets.only(top: 130.0 ),
-            child: ElevatedButton( child: const Text('\t\t\tStart Empty Workout\t\t\t'), onPressed: () {
-              Navigator.push(
-              context, MaterialPageRoute(
-              builder: (context) => WorkoutPage(index: -1, pf: user),
-            ),);}),),),
+            child:
+              ElevatedButton( child: const Text('\t\t\tStart Empty Workout\t\t\t'),
+                onPressed: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(
+                      builder: (context) => WorkoutPage(index: -1, pf: user),
+                    ),
+                  );
+                }
+              ),
+          ),
+        ),
 
 
         ///Users saved templates title
