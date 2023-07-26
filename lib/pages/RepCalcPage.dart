@@ -22,6 +22,11 @@ class RepCalcPageState extends State<RepCalcPage> {
 
   ///Options for drop down menu on 1RM Calculator
   List<String> listitems = ['lb', 'kg'];
+  double calc = 0;
+  String value = '';
+  TextEditingController weightController = TextEditingController();
+  TextEditingController repController = TextEditingController();
+
 
   ///Default selected option on dropdown menu
   String? sel = 'lb';
@@ -29,6 +34,7 @@ class RepCalcPageState extends State<RepCalcPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('1RM Calculator'),
       ),
@@ -66,6 +72,7 @@ class RepCalcPageState extends State<RepCalcPage> {
                     height: 40,
                     child:
                       TextFormField(
+                        controller: weightController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -114,6 +121,7 @@ class RepCalcPageState extends State<RepCalcPage> {
                       height: 40,
                       child:
                       TextFormField(
+                        controller: repController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -132,10 +140,27 @@ class RepCalcPageState extends State<RepCalcPage> {
                   child:
                     ElevatedButton(
                         child: const Text('Calculate'),
-                        onPressed: () {  },
+                        onPressed: () {
+                          setState(() {
+                              calc = double.parse(weightController.text) / ((1.0278) - (0.0278 * double.parse(repController.text)));
+                              value = calc.toStringAsFixed(2);
+                          });
+                        },
                     )
                 ),
             ),
+
+            ///Display box
+            Align(
+              alignment: Alignment.topCenter,
+              child:
+                  Padding(
+                    padding: const EdgeInsets.only(top: 300),
+                    child:
+                      Text('Calculated max weight: $value $sel',
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  )
+            )
           ]
       ),
     );
