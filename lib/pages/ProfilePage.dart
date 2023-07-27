@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:charts_flutter/flutter.dart' as charts;
 import '../util/Profile.dart';
 
 /*
@@ -26,9 +26,17 @@ class ProfilePage extends StatefulWidget{
 }
 
 class ProfilePageState extends State<ProfilePage>{
-
   @override
   Widget build(BuildContext context) {
+    List<charts.Series<VolumeHist, num>> vol = [
+      charts.Series(
+          id: "developers",
+          data: widget.pf.Volume_history,
+          domainFn: (VolumeHist vol, _) => vol.MonthDay,
+          measureFn: (VolumeHist vol, _) => vol.volume,
+          colorFn: (VolumeHist vol, _) => vol.Barcolor
+      )
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.pf.Users_name),
@@ -83,6 +91,27 @@ class ProfilePageState extends State<ProfilePage>{
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
           ),
+        ),
+
+        Align(
+          alignment: Alignment.topCenter,
+          child:
+            Padding(
+              padding: EdgeInsets.only(top: 350),
+              child:
+                SizedBox(
+                  width: 400,
+                  height: 500,
+                  child:
+                    charts.LineChart(vol,
+                    domainAxis: const charts.NumericAxisSpec(
+                      tickProviderSpec:
+                      charts.BasicNumericTickProviderSpec(zeroBound: false),
+                      viewport: charts.NumericExtents(0101, 1231),
+                    ),
+                    animate: true),
+                ),
+            )
         ),
       ]),
     );

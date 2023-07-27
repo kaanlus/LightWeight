@@ -6,6 +6,7 @@ import 'package:lightweight/util/Profile.dart';
 Profile CreateDefault(){
   Profile defaultUserProfile = Profile('Default User');
   defaultUserProfile.Saved_templates = PopulateTemplates();
+  defaultUserProfile.Volume_history = PopulateVolume();
   return defaultUserProfile;
 }
 
@@ -54,11 +55,20 @@ List<WorkoutTemplate> PopulateDefault() {
   dtl.add(CaT);
   dtl.add(Leg);
   dtl.add(BaB);
-
+  
   ///return the list of default templates
   return dtl;
 }
 
+///populates the sample volume history data
+List<VolumeHist> PopulateVolume(){
+  List<VolumeHist> vhl = [];
+  vhl.add(VolumeHist(10800, 0102));
+  vhl.add(VolumeHist(11600, 0408));
+  vhl.add(VolumeHist(12070, 0812));
+  vhl.add(VolumeHist(9400, 1016));
+  return vhl;
+}
 ///template population function
 List<WorkoutTemplate> PopulateTemplates() {
 

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:lightweight/util/Goal.dart';
 import 'package:lightweight/util/Workout.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 /*
  * -----------------------------------------------
@@ -19,7 +21,7 @@ class Profile {
   String  Users_name;
 
   ///Volume history
-  Map<DateTime, double> Volume_history = Map();
+  List<VolumeHist> Volume_history = [];
 
   ///Progress on goals
   List<int> Goal_progress = [];
@@ -49,7 +51,7 @@ class Profile {
   Add_goal(Goal g){ Goals.add(g); }
 
   ///Add to volume history
-  Add_volume_on_date(DateTime dt, double vol) { Volume_history[dt] = vol; }
+  Add_volume(int dt, int vol) { Volume_history.add(VolumeHist(vol, dt)); }
 
   ///Return the list of goals for a user
   List<Goal> Get_goals(){ return Goals; }
@@ -63,17 +65,17 @@ class Profile {
   ///Returns list of previous saved workouts
   Get_workout_history(){ return Workout_log; }
 
-  ///Returns volume for a given date
-  Get_volume(DateTime dt){ return Volume_history[dt]; }
 
 }
 
-/*
-class VolumePair {
-  DateTime date;
-  double volume;
-  VolumePair(this.date, this.volume);
-  Get_first(){ return this.date; }
-  Get_second(){ return this.volume; }
+class VolumeHist{
+
+  ///int value of volume
+  final int volume;
+  /// 0011 format for date 00 = month 11 = day
+  final int MonthDay;
+  ///color of line graph
+  final charts.Color Barcolor = charts.ColorUtil.fromDartColor(Colors.red);
+
+  VolumeHist( @required this.volume, @required this.MonthDay);
 }
- */

@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
 
   ///populates default user profile for testing and demo
   Profile user = CreateDefault();
-
   ///populates default templates
   List<WorkoutTemplate> defaultTemplates = PopulateDefault();
 
