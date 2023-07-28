@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lightweight/util/Exercise.dart';
 import 'package:lightweight/util/Goal.dart';
 import 'package:lightweight/util/Workout.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -32,6 +33,9 @@ class Profile {
   ///Workout log
   List<WorkoutRecord> Workout_log = [];
 
+  ///List of exercises
+  List<ExerciseTemplate> Saved_exercises = [];
+
   ///Goals
   List<Goal> Goals = [];
 
@@ -61,6 +65,9 @@ class Profile {
 
   ///Returns list of saved templates
   Get_workout_template(){ return Saved_templates; }
+
+  ///Returns list of Exercise templates
+  Get_exercise_template(){ return Saved_templates; }
 
   ///Returns list of previous saved workouts
   Get_workout_history(){ return Workout_log; }

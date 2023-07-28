@@ -7,6 +7,11 @@ Profile CreateDefault(){
   Profile defaultUserProfile = Profile('Default User');
   defaultUserProfile.Saved_templates = PopulateTemplates();
   defaultUserProfile.Volume_history = PopulateVolume();
+  for(int i = 0; i < defaultUserProfile.Saved_templates.length; i++){
+    for(int j = 0; j < defaultUserProfile.Saved_templates[i].Exercise_templates.length; j++){
+      defaultUserProfile.Saved_exercises.add(defaultUserProfile.Saved_templates[i].Exercise_templates[i]);
+    }
+  }
   return defaultUserProfile;
 }
 
