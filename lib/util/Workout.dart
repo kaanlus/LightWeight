@@ -27,6 +27,11 @@ class WorkoutTemplate {
 
   }
 
+  ///Removes exercise template
+  Remove_exercise(int index){
+    Exercise_templates.removeAt(index);
+  }
+
   ///Returns name of the workout
   Get_name(){ return this.Workout_name; }
 
