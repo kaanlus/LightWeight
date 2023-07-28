@@ -27,9 +27,9 @@ List<WorkoutTemplate> PopulateDefault() {
   final WorkoutTemplate BaB = WorkoutTemplate('Back and Biceps');
 
   ///Chest and triceps default exercises
-  final ExerciseTemplate BP = ExerciseTemplate('Bench Press', 3, 'Barbell Bench press', 'Pectoralis Major');
-  final ExerciseTemplate CF = ExerciseTemplate('Chest Flys', 3, 'Dumbbell flys', 'Pectoralis Major');
-  final ExerciseTemplate TE = ExerciseTemplate('Triceps Extensions', 4, 'Dumbbell overhead triceps Extensions', 'Triceps Brachii');
+  final ExerciseTemplate BP = ExerciseTemplate('Bench Press', 3, 10 ,'Barbell Bench press', 'Pectoralis Major');
+  final ExerciseTemplate CF = ExerciseTemplate('Chest Flys', 3, 10 , 'Dumbbell flys', 'Pectoralis Major');
+  final ExerciseTemplate TE = ExerciseTemplate('Triceps Extensions', 4, 10 , 'Dumbbell overhead triceps Extensions', 'Triceps Brachii');
 
   ///Add to workout
   CaT.Exercise_templates.add(BP);
@@ -37,9 +37,9 @@ List<WorkoutTemplate> PopulateDefault() {
   CaT.Exercise_templates.add(TE);
 
   ///Legs default exercises
-  final ExerciseTemplate LE = ExerciseTemplate('Leg Extensions', 4, 'Cable Machine Leg extensions', 'Quadriceps Femoris');
-  final ExerciseTemplate LC = ExerciseTemplate('Leg Curls', 4, 'Cable Machine Leg curls', 'Biceps Femoris');
-  final ExerciseTemplate BS = ExerciseTemplate('Back Squats', 3, 'Barbell Back Squats', 'Quadriceps Femoris');
+  final ExerciseTemplate LE = ExerciseTemplate('Leg Extensions', 4, 10 , 'Cable Machine Leg extensions', 'Quadriceps Femoris');
+  final ExerciseTemplate LC = ExerciseTemplate('Leg Curls', 4, 10 , 'Cable Machine Leg curls', 'Biceps Femoris');
+  final ExerciseTemplate BS = ExerciseTemplate('Back Squats', 3, 10 , 'Barbell Back Squats', 'Quadriceps Femoris');
 
   ///Add to workout
   Leg.Exercise_templates.add(LE);
@@ -47,9 +47,9 @@ List<WorkoutTemplate> PopulateDefault() {
   Leg.Exercise_templates.add(BS);
 
   ///Back and biceps default exercises
-  final ExerciseTemplate R = ExerciseTemplate('Rows', 3, 'Chest Supported Dumbbell rows', 'Trapezius');
-  final ExerciseTemplate BF = ExerciseTemplate('Back Flys', 3, 'Reverse Dumbbell flys', 'Deltoid');
-  final ExerciseTemplate BC = ExerciseTemplate('Bicep Curls', 4, 'Dumbbell overhead triceps Extensions', 'Bicep Brachii');
+  final ExerciseTemplate R = ExerciseTemplate('Rows', 3, 10 , 'Chest Supported Dumbbell rows', 'Trapezius');
+  final ExerciseTemplate BF = ExerciseTemplate('Back Flys', 3, 10 , 'Reverse Dumbbell flys', 'Deltoid');
+  final ExerciseTemplate BC = ExerciseTemplate('Bicep Curls', 4, 10 , 'Dumbbell overhead triceps Extensions', 'Bicep Brachii');
 
   ///Add to workout
   BaB.Exercise_templates.add(R);

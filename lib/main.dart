@@ -31,6 +31,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:lightweight/pages/HomePage.dart';
+import 'package:lightweight/util/DefaultProfileInit.dart';
+import 'package:lightweight/util/Profile.dart';
 
 
 
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Profile user = CreateDefault();
     return MaterialApp(
       //title
       title: 'Light Weight',
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       //call to home page
-      home: const HomePage(title: 'Light Weight Home'),
+      home: HomePage(title: 'Light Weight Home', pf: user),
     );
   }
 }

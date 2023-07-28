@@ -17,20 +17,26 @@ class ExerciseTemplate{
    ///# for goal of sets to do in an exercise
    int Set_goal;
 
-   ///descrition of the exercise
+   ///# for goal of reps to do per set
+   int Rep_goal;
+
+   ///description of the exercise
    String Exercise_description;
 
    ///Target muscle for the exercise
    String Target_muscle;
 
    ///Constructor for the exercise template object
-   ExerciseTemplate(this.Exercise_name, this.Set_goal, this.Exercise_description, this.Target_muscle);
+   ExerciseTemplate(this.Exercise_name, this.Set_goal, this.Rep_goal , this.Exercise_description, this.Target_muscle);
 
    ///Returns name of the exercise
    String Get_name(){ return this.Exercise_name;}
 
    ///Returns # of sets to do
    int Get_sets(){ return this.Set_goal; }
+
+   ///Returns # of reps to do
+   int Get_reps(){ return this.Rep_goal; }
 
    ///Increase number of sets by one, limited to 4
    Add_one_set(){
@@ -40,7 +46,7 @@ class ExerciseTemplate{
 
    ///Creates a record of the current exercise from the current template
    ExerciseRecord Create_record_from(){
-     return ExerciseRecord(this.Exercise_name, this.Set_goal, this.Exercise_description, this.Target_muscle);
+     return ExerciseRecord(this.Exercise_name, this.Set_goal, this.Set_goal ,this.Exercise_description, this.Target_muscle);
    }
 
 }
@@ -74,7 +80,7 @@ class ExerciseRecord extends ExerciseTemplate {
   List<int> Rep_for_Set = [];
 
   ///Constructor of record using contents for template object
-  ExerciseRecord(super.Exercise_name, super.Set_goal, super.Exercise_description, super.Target_muscle);
+  ExerciseRecord(super.Exercise_name, super.Set_goal, super.Rep_goal ,super.Exercise_description, super.Target_muscle);
 
   ///Returns # of sets already done
   int Get_sets_done(){ return this.Sets_done; }

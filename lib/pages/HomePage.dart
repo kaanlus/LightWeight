@@ -20,8 +20,9 @@ import 'RepCalcPage.dart';
  * -----------------------------------------------
  */
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  HomePage({super.key, required this.title, required this.pf});
   final String title;
+  Profile pf;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,9 +32,8 @@ class _HomePageState extends State<HomePage> {
 
   ///index of bottom bar selection on open
   int _selectedIndex = 2;
-
   ///populates default user profile for testing and demo
-  Profile user = CreateDefault();
+
   ///populates default templates
   List<WorkoutTemplate> defaultTemplates = PopulateDefault();
 
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       if(_selectedIndex == 0) {
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => ProfilePage(pf: user),
+          builder: (context) => ProfilePage(pf: widget.pf),
         ),
         );
       }
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
 
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => GoalPage(pf: user),
+          builder: (context) => GoalPage(pf: widget.pf),
         ),
         );
 
@@ -93,6 +93,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Profile user = widget.pf;
+    int len = user.Saved_templates.length;
     return Scaffold(
       appBar: AppBar(
         //title
@@ -157,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               // Create a grid with 3 columns.
               crossAxisCount: 3,
               // Generate 15 widgets that display their index in the List.
-              children: List.generate(defaultTemplates.length, (index) {
+              children: List.generate(len, (index) {
                 return ElevatedButton(
                   child: Text(user.Saved_templates[index].Get_name()),
                   //on button press take user to the workout page using the navigator
