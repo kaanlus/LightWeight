@@ -158,7 +158,6 @@ class _HomePageState extends State<HomePage> {
               crossAxisSpacing: 10,
               // Create a grid with 3 columns.
               crossAxisCount: 3,
-              // Generate 15 widgets that display their index in the List.
               children: List.generate(len, (index) {
                 return ElevatedButton(
                   child: Text(user.Saved_templates[index].Get_name()),

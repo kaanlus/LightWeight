@@ -51,6 +51,8 @@ class Profile {
   ///Add a new workout record
   Add_workout_record(WorkoutRecord wr){ Workout_log.add(wr); }
 
+  Add_exercise_template(ExerciseTemplate et){ Saved_exercises.add(et); }
+
   ///Add a new goal
   Add_goal(Goal g){ Goals.add(g); }
 

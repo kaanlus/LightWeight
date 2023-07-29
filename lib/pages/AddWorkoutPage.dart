@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lightweight/pages/AddExercisePage.dart';
 import 'package:lightweight/pages/HomePage.dart';
 import 'package:lightweight/util/Workout.dart';
 import '../util/Exercise.dart';
@@ -31,10 +32,6 @@ class AddWorkoutState extends State<AddWorkout> {
     Profile pro = widget.pf;
     List<ExerciseTemplate> toAdd = [];
     TextEditingController nameController = TextEditingController();
-    /// ADD TEST REMOVE IN PRACTICE
-    toAdd.add(ExerciseTemplate('Exercise 1', 3, 10 , 'sample1', 'sample1'));
-    toAdd.add(ExerciseTemplate('Exercise 2', 4, 10 , 'sample2', 'sample2'));
-    /// ___________________________
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -127,11 +124,11 @@ class AddWorkoutState extends State<AddWorkout> {
               alignment: Alignment.topLeft,
               child:
               Padding(
-                padding: const EdgeInsets.only(top: 200, left: 25, bottom: 100),
+                padding: const EdgeInsets.only(top: 200, left: 25, right: 25, bottom: 100),
                 child:
-                Column(
-                  children:
-                    List.generate(toAdd.length, (index) {
+                ListView.builder(
+                    itemCount: toAdd.length,
+                    itemBuilder: (BuildContext context, int index) {
                       return Row(
                         children: [
                           Padding(
@@ -163,7 +160,7 @@ class AddWorkoutState extends State<AddWorkout> {
                   ),
                 )
               ),
-            ),
+
 
             Align(
               alignment: Alignment.bottomCenter,
@@ -177,7 +174,11 @@ class AddWorkoutState extends State<AddWorkout> {
                     ElevatedButton(
                       child: const Text('Add Exercise'),
                       onPressed: () {
-
+                        Navigator.push(
+                          context, MaterialPageRoute(
+                          builder: (context) => AddExercise(pf: pro, ta: toAdd),
+                        ),
+                        );
                       }
                     ),
                   ),
@@ -201,10 +202,10 @@ class AddWorkoutState extends State<AddWorkout> {
                               tmp.Add_exercise(toAdd[i]);
                             }
                             pro.Add_workout_template(tmp);
-                            Navigator.pushReplacement(
-                              context, MaterialPageRoute(
-                              builder: (context) => HomePage(title: 'Light Weight Home', pf: pro),
-                            ),
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: pro)),
+                                  (Route<dynamic> route) => false,
                             );
                         }
                     ),

@@ -5,16 +5,21 @@ import 'package:lightweight/util/Profile.dart';
 ///Returns a default populated profile
 Profile CreateDefault(){
   Profile defaultUserProfile = Profile('Default User');
-  defaultUserProfile.Saved_templates = PopulateTemplates();
   defaultUserProfile.Volume_history = PopulateVolume();
-  for(int i = 0; i < defaultUserProfile.Saved_templates.length; i++){
-    for(int j = 0; j < defaultUserProfile.Saved_templates[i].Exercise_templates.length; j++){
-      defaultUserProfile.Saved_exercises.add(defaultUserProfile.Saved_templates[i].Exercise_templates[i]);
-    }
-  }
+  defaultUserProfile.Saved_exercises = PopulateExercises();
   return defaultUserProfile;
 }
 
+List<ExerciseTemplate> PopulateExercises(){
+  List<ExerciseTemplate> etl = [];
+
+  etl.add(ExerciseTemplate('Bench Press', 3, 10 ,'Barbell Bench press', 'Pectoralis Major'));
+  etl.add(ExerciseTemplate('Chest Flys', 3, 10 , 'Dumbbell flys', 'Pectoralis Major'));
+  etl.add(ExerciseTemplate('Triceps Extensions', 4, 10 , 'Dumbbell overhead triceps Extensions', 'Triceps Brachii'));
+  etl.add(ExerciseTemplate('Leg Extensions', 4, 10 , 'Cable Machine Leg extensions', 'Quadriceps Femoris'));
+
+  return etl;
+}
 ///Populating function
 List<WorkoutTemplate> PopulateDefault() {
 
@@ -74,22 +79,4 @@ List<VolumeHist> PopulateVolume(){
   vhl.add(VolumeHist(9400, 1016));
   return vhl;
 }
-///template population function
-List<WorkoutTemplate> PopulateTemplates() {
 
-  ///List of templates
-  List<WorkoutTemplate> tl = [];
-
-  ///workout template creation
-  final WorkoutTemplate CaT = WorkoutTemplate('Chest and Triceps');
-  final WorkoutTemplate Leg = WorkoutTemplate('Legs');
-  final WorkoutTemplate BaB = WorkoutTemplate('Back and Biceps');
-
-  ///Add to List
-  tl.add(CaT);
-  tl.add(Leg);
-  tl.add(BaB);
-
-  ///Return list
-  return tl;
-}
