@@ -73,10 +73,10 @@ List<WorkoutTemplate> PopulateDefault() {
 ///populates the sample volume history data
 List<VolumeHist> PopulateVolume(){
   List<VolumeHist> vhl = [];
-  vhl.add(VolumeHist(10800, 0102));
-  vhl.add(VolumeHist(11600, 0408));
-  vhl.add(VolumeHist(12070, 0812));
-  vhl.add(VolumeHist(9400, 1016));
+  vhl.add(VolumeHist(10800, DateTime.utc(2023,1,1)));
+  vhl.add(VolumeHist(11600, DateTime.utc(2023,4,1)));
+  vhl.add(VolumeHist(12070, DateTime.utc(2023,6,6)));
+  vhl.add(VolumeHist(9400, DateTime.utc(2023,10,4)));
   return vhl;
 }
 

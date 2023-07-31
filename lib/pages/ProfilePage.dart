@@ -28,9 +28,9 @@ class ProfilePage extends StatefulWidget{
 class ProfilePageState extends State<ProfilePage>{
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<VolumeHist, num>> vol = [
+    List<charts.Series<VolumeHist, DateTime>> vol = [
       charts.Series(
-          id: "developers",
+          id: "volume",
           data: widget.pf.Volume_history,
           domainFn: (VolumeHist vol, _) => vol.MonthDay,
           measureFn: (VolumeHist vol, _) => vol.volume,
@@ -103,12 +103,8 @@ class ProfilePageState extends State<ProfilePage>{
                   width: 400,
                   height: 500,
                   child:
-                    charts.LineChart(vol,
-                    domainAxis: const charts.NumericAxisSpec(
-                      tickProviderSpec:
-                      charts.BasicNumericTickProviderSpec(zeroBound: false),
-                      viewport: charts.NumericExtents(0101, 1231),
-                    ),
+                    charts.TimeSeriesChart(vol,
+                    dateTimeFactory: const charts.LocalDateTimeFactory(),
                     animate: true),
                 ),
             )

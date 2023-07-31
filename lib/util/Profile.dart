@@ -57,7 +57,7 @@ class Profile {
   Add_goal(Goal g){ Goals.add(g); }
 
   ///Add to volume history
-  Add_volume(int dt, int vol) { Volume_history.add(VolumeHist(vol, dt)); }
+  Add_volume(DateTime dt, int vol) { Volume_history.add(VolumeHist(vol, dt)); }
 
   ///Return the list of goals for a user
   List<Goal> Get_goals(){ return Goals; }
@@ -82,7 +82,7 @@ class VolumeHist{
   ///int value of volume
   final int volume;
   /// 0011 format for date 00 = month 11 = day
-  final int MonthDay;
+  final DateTime MonthDay;
   ///color of line graph
   final charts.Color Barcolor = charts.ColorUtil.fromDartColor(Colors.red);
 
