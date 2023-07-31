@@ -27,11 +27,16 @@ class AddWorkout extends StatefulWidget {
 }
 
 class AddWorkoutState extends State<AddWorkout> {
+
+  List<ExerciseTemplate> toAdd = [];
+
   @override
   Widget build(BuildContext context) {
     Profile pro = widget.pf;
-    List<ExerciseTemplate> toAdd = [];
     TextEditingController nameController = TextEditingController();
+    int indx = 0;
+
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -134,21 +139,33 @@ class AddWorkoutState extends State<AddWorkout> {
                           Padding(
                             padding: const EdgeInsets.only(top:20),
                             child:
-                            Text(toAdd[index].Exercise_name,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                            SizedBox(
+                              width: 100,
+                              child:
+                                Text(toAdd[index].Exercise_name,
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                ),
                             ),
                           ),
 
-                          Padding(
-                            padding: const EdgeInsets.only(left: 140,top:20),
+                          Align(
+                            alignment: Alignment.topRight,
                             child:
-                            Text(toAdd[index].Rep_goal.toString(),
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 105,top:20),
+                            child:
+                            SizedBox(
+                              width: 30,
+                              child:
+                                Text(toAdd[index].Rep_goal.toString(),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                ),
+                              ),
+                          ),
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(left: 85, top:20),
+                            padding: const EdgeInsets.only(left: 70, top:20),
                             child:
                             Text(toAdd[index].Set_goal.toString(),
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -173,17 +190,21 @@ class AddWorkoutState extends State<AddWorkout> {
                     child:
                     ElevatedButton(
                       child: const Text('Add Exercise'),
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        final indx = await Navigator.push(
                           context, MaterialPageRoute(
                           builder: (context) => AddExercise(pf: pro, ta: toAdd),
                         ),
                         );
+                        setState(() {
+                          toAdd.add(pro.Saved_exercises[indx]);
+                        });
                       }
                     ),
                   ),
               ),
             ),
+
 
             Align(
               alignment: Alignment.bottomCenter,

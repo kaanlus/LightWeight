@@ -1,9 +1,11 @@
+import 'package:lightweight/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:lightweight/util/Exercise.dart';
 import 'package:lightweight/util/Profile.dart';
 
 import '../util/DefaultProfileInit.dart';
 import '../util/Workout.dart';
+import 'HomePage.dart';
 
 /*
  * -----------------------------------------------
@@ -90,12 +92,10 @@ class WorkoutPageState extends State<WorkoutPage> {
             Padding(
               padding: const EdgeInsets.only(top: 90.0, bottom: 185.0),
               child:
-                GridView.count(
-                  crossAxisCount: 1,
-                  childAspectRatio: (500 / 320),
-                  children:
-                    ///List of entries for each set of an exercise
-                    List.generate(exercises.length, (index) {
+              ListView.builder(
+                itemCount: exercises.length,
+                itemBuilder: (BuildContext context, int index) {
+                      int reps = exercises[index].Rep_goal;
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
@@ -151,10 +151,10 @@ class WorkoutPageState extends State<WorkoutPage> {
                                               height: 30,
                                               child: TextFormField(
                                                       textAlign: TextAlign.center,
-                                                      decoration: const InputDecoration(
-                                                        contentPadding: EdgeInsets.all(0),
-                                                        border: OutlineInputBorder(),
-                                                        hintText: 'Reps',
+                                                      decoration: InputDecoration(
+                                                        contentPadding: const EdgeInsets.all(0),
+                                                        border: const OutlineInputBorder(),
+                                                        hintText: 'Goal: $reps',
                                                       ),
                                               ),
                                           ),
@@ -182,12 +182,94 @@ class WorkoutPageState extends State<WorkoutPage> {
                               }
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10) ,
+                              child:
+                              SizedBox(
+                                width: 300,
+                                child:
+                                ElevatedButton(
+                                    child: const Text('Add Set'),
+                                    onPressed: () {
+                                      setState(() {
+                                        exercises[index].Add_one_set();
+                                      });
+                                    }
+                                ),
+                              ),
+                            ),
                           ]
                       );
                     }
                   ),
                 ),
+
+
+        Align(
+          alignment: Alignment.bottomCenter,
+          child:
+          Padding(
+            padding: const EdgeInsets.only(bottom: 105) ,
+            child:
+            SizedBox(
+              width: 300,
+              child:
+              ElevatedButton(
+                  child: const Text('Finish Workout'),
+                  onPressed: ()  {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: pro)),
+                          (Route<dynamic> route) => false,
+                    );
+                  }
+              ),
             ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child:
+          Padding(
+            padding: const EdgeInsets.only(bottom: 55) ,
+            child:
+            SizedBox(
+              width: 300,
+              child:
+              ElevatedButton(
+                  child: const Text('Delete Workout'),
+                  onPressed: ()  {
+                    pro.Saved_templates.removeAt(widget.index);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: pro)),
+                          (Route<dynamic> route) => false,
+                    );
+                  }
+              ),
+            ),
+          ),
+        ),
+
+
+        Align(
+          alignment: Alignment.bottomCenter,
+          child:
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5) ,
+            child:
+            SizedBox(
+              width: 300,
+              child:
+              ElevatedButton(
+                  child: const Text('Cancel Workout'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }
+              ),
+            ),
+          ),
+        ),
       ]),
     );
   }

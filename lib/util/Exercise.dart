@@ -40,7 +40,6 @@ class ExerciseTemplate{
 
    ///Increase number of sets by one, limited to 4
    Add_one_set(){
-     if(this.Set_goal < 4)
       this.Set_goal++;
    }
 
@@ -93,7 +92,6 @@ class ExerciseRecord extends ExerciseTemplate {
 
   ///Increase the number of sets done by one, limited to 4
   Add_one_set(){
-    if(this.Set_goal < 4)
       this.Set_goal++;
   }
 

@@ -31,6 +31,11 @@ class AddExerciseState extends State<AddExercise> {
   Widget build(BuildContext context) {
     Profile pro = widget.pf;
     List<ExerciseTemplate> exer = widget.ta;
+    TextEditingController nameController = TextEditingController();
+    TextEditingController descController = TextEditingController();
+    TextEditingController muscleController = TextEditingController();
+    TextEditingController repController = TextEditingController();
+    TextEditingController setController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Template'),
@@ -70,6 +75,7 @@ class AddExerciseState extends State<AddExercise> {
                   width: 365,
                   height: 30,
                   child: TextFormField(
+                    controller: nameController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
@@ -103,6 +109,7 @@ class AddExerciseState extends State<AddExercise> {
                   width: 365,
                   height: 30,
                   child: TextFormField(
+                    controller: descController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
@@ -136,6 +143,7 @@ class AddExerciseState extends State<AddExercise> {
                   width: 365,
                   height: 30,
                   child: TextFormField(
+                    controller: muscleController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
@@ -169,6 +177,7 @@ class AddExerciseState extends State<AddExercise> {
                   width: 160,
                   height: 30,
                   child: TextFormField(
+                    controller: repController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
@@ -202,6 +211,7 @@ class AddExerciseState extends State<AddExercise> {
                   width: 160,
                   height: 30,
                   child: TextFormField(
+                    controller: setController,
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
@@ -226,8 +236,10 @@ class AddExerciseState extends State<AddExercise> {
                         ElevatedButton(
                           child: Text('Add Exercise'),
                           onPressed: () {
-
-                          },
+                            ExerciseTemplate newT = ExerciseTemplate(nameController.text, int.parse(setController.text), int.parse(repController.text), descController.text, muscleController.text);
+                            pro.Saved_exercises.add(newT);
+                            Navigator.pop(context, pro.Saved_exercises.length-1);
+                            },
                         )
                     )
                 ),
@@ -261,13 +273,33 @@ class AddExerciseState extends State<AddExercise> {
                           childAspectRatio: (500/100),
                           children: List.generate(pro.Saved_exercises.length, (index) {
                             return
-                              ElevatedButton(
-                              child: Text(pro.Saved_exercises[index].Get_name()),
-                              onPressed: () {
-                                exer.add(pro.Saved_exercises[index]);
-                                print(exer.length);
-                                Navigator.pop(context);
-                              },
+                            Row(
+                              children : [
+                                SizedBox(
+                                  width:250,
+                                  height: 200,
+                                  child:
+                                  ElevatedButton(
+                                  child: Text(pro.Saved_exercises[index].Get_name()),
+                                  onPressed: () {
+                                    Navigator.pop(context, index);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:100,
+                                  height: 200,
+                                  child:
+                                  ElevatedButton(
+                                    child: Text('Delete Exercise'),
+                                    onPressed: () {
+                                      setState(() {
+                                        pro.Saved_exercises.removeAt(index);
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ]
                             );
                           }),
                         ),
