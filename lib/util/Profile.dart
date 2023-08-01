@@ -81,7 +81,7 @@ class VolumeHist{
 
   ///int value of volume
   final int volume;
-  /// 0011 format for date 00 = month 11 = day
+
   final DateTime MonthDay;
   ///color of line graph
   final charts.Color Barcolor = charts.ColorUtil.fromDartColor(Colors.red);

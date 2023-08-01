@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
         Align(
             alignment: Alignment.topCenter,
             child:
-            Padding( padding: const EdgeInsets.only( left: 10, right: 10 ,top: 590.0),
+            Padding( padding: const EdgeInsets.only( left: 10, right: 10 ,top: 590.0, bottom: 5),
               child:
               GridView.count(
                 mainAxisSpacing: 10,
