@@ -31,6 +31,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:lightweight/pages/HomePage.dart';
+import 'package:lightweight/pages/LogInPage.dart';
 import 'package:lightweight/util/DefaultProfileInit.dart';
 import 'package:lightweight/util/Profile.dart';
 
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       //call to home page
-      home: HomePage(title: 'Light Weight Home', pf: user),
+      home: LoginPage()
     );
   }
 }
