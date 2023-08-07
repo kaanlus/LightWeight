@@ -40,7 +40,11 @@ class WorkoutTemplate {
 
   ///Creates a workout record from the current template
   WorkoutRecord Create_record_from(){
-    return WorkoutRecord(this.Workout_name);
+    List<ExerciseRecord> ER = [];
+    for( int i = 0; i < Exercise_templates.length; i++){
+      ER.add(Exercise_templates[i].Create_record_from());
+    }
+    return WorkoutRecord(this.Workout_name, ER);
   }
 }
 
@@ -62,15 +66,12 @@ class WorkoutRecord extends WorkoutTemplate {
   ///Date of the workout set to time of creation of record
   DateTime Workout_date = DateTime.now();
 
+
   ///List of the exercise records
-  List<ExerciseRecord> Exercise_records = [];
+  List<ExerciseRecord> Exercise_records;
 
   ///Constructor of workout record
-  WorkoutRecord(super.Workout_name){
-    for( int i = 0; i < super.Exercise_templates.length; i++){
-      Exercise_records.add(super.Exercise_templates[i].Create_record_from());
-    }
-  }
+  WorkoutRecord(super.Workout_name, this.Exercise_records);
 
   ///Adds a workout to the template
   Add_exercise_record(ExerciseTemplate ex){

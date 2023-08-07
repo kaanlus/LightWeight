@@ -48,24 +48,32 @@ class WorkoutPageState extends State<WorkoutPage> {
     ///List of exercises to render into page
     List<ExerciseTemplate> exercises = [];
 
+    ///WorkoutTemplate being used
+    WorkoutTemplate wt;
+
+    ///workout record to be added when finished workout
+    WorkoutRecord wr;
+
     ///Current profile
     Profile pro = widget.pf;
 
     ///If else tree to select title of workout based on context from last page
-    if(widget.index >= 0){
-      workoutTitle = pro.Saved_templates[widget.index].Workout_name;
-      exercises = pro.Saved_templates[widget.index].Exercise_templates;
-    } else if(widget.index == -1){
-      workoutTitle = 'New Workout';
+    if(widget.index >= 0) {
+      wt = pro.Saved_templates[widget.index];
+      workoutTitle = wt.Workout_name;
+      exercises = wt.Exercise_templates;
     } else if(widget.index == -2){
-      workoutTitle = defaultTemplates[0].Workout_name;
-      exercises = defaultTemplates[0].Exercise_templates;
+      wt = defaultTemplates[0];
+      workoutTitle = wt.Workout_name;
+      exercises = wt.Exercise_templates;
     } else if(widget.index == -3){
-      workoutTitle = defaultTemplates[1].Workout_name;
-      exercises = defaultTemplates[1].Exercise_templates;
+      wt = defaultTemplates[1];
+      workoutTitle = wt.Workout_name;
+      exercises = wt.Exercise_templates;
     } else if(widget.index == -4){
-      workoutTitle = defaultTemplates[2].Workout_name;
-      exercises = defaultTemplates[2].Exercise_templates;
+      wt = defaultTemplates[2];
+      workoutTitle = wt.Workout_name;
+      exercises = wt.Exercise_templates;
     }
 
     return Scaffold(
