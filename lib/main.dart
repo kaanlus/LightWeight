@@ -20,7 +20,6 @@
  *  - Exercise log
  *  - Workout builder
  *  - Workout log
- *  - Set timer
  *  - Data Persistence
  *
  * Optional Features:
@@ -30,10 +29,7 @@
  *
  */
 import 'package:flutter/material.dart';
-import 'package:lightweight/pages/HomePage.dart';
 import 'package:lightweight/pages/LogInPage.dart';
-import 'package:lightweight/util/DefaultProfileInit.dart';
-import 'package:lightweight/util/Profile.dart';
 
 
 
@@ -54,7 +50,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Profile user = CreateDefault();
     return MaterialApp(
       //title
       title: 'Light Weight',

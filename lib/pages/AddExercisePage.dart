@@ -30,7 +30,6 @@ class AddExerciseState extends State<AddExercise> {
   @override
   Widget build(BuildContext context) {
     Profile pro = widget.pf;
-    List<ExerciseTemplate> exer = widget.ta;
     TextEditingController nameController = TextEditingController();
     TextEditingController descController = TextEditingController();
     TextEditingController muscleController = TextEditingController();

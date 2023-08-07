@@ -7,6 +7,7 @@ Profile CreateDefault(){
   Profile defaultUserProfile = Profile('Default User');
   defaultUserProfile.Volume_history = PopulateVolume();
   defaultUserProfile.Saved_exercises = PopulateExercises();
+  defaultUserProfile.Workout_log = PopulateLog();
   return defaultUserProfile;
 }
 
@@ -19,6 +20,33 @@ List<ExerciseTemplate> PopulateExercises(){
   etl.add(ExerciseTemplate('Leg Extensions', 4, 10 , 'Cable Machine Leg extensions', 'Quadriceps Femoris'));
 
   return etl;
+}
+
+List<WorkoutRecord> PopulateLog(){
+  List<WorkoutRecord> lwr = [];
+  WorkoutTemplate CaT = WorkoutTemplate('Chest and Triceps');
+  WorkoutRecord CaTR = CaT.Create_record_from();
+  ExerciseTemplate et1 = ExerciseTemplate('Bench Press', 3, 10 ,'Barbell Bench press', 'Pectoralis Major');
+  ExerciseRecord er1 = et1.Create_record_from();
+  er1.Rep_for_Set = [10, 10, 10];
+  er1.Weight_for_set = [190, 190, 190];
+  er1.Sets_done = 3;
+  ExerciseTemplate et2 = ExerciseTemplate('Chest Flys', 3, 10 , 'Dumbbell flys', 'Pectoralis Major');
+  ExerciseRecord er2 = et2.Create_record_from();
+  er2.Rep_for_Set = [10, 10, 10];
+  er2.Weight_for_set = [50, 50, 50];
+  er2.Sets_done = 3;
+  ExerciseTemplate et3 = ExerciseTemplate('Triceps Extensions', 4, 10 , 'Dumbbell overhead triceps Extensions', 'Triceps Brachii');
+  ExerciseRecord er3 = et3.Create_record_from();
+  er3.Rep_for_Set = [10, 10, 10];
+  er3.Weight_for_set = [60, 60, 60];
+  er3.Sets_done = 3;
+  CaTR.Exercise_records.add(er1);
+  CaTR.Exercise_records.add(er2);
+  CaTR.Exercise_records.add(er3);
+  CaTR.Workout_date = DateTime.now();
+  lwr.add(CaTR);
+  return lwr;
 }
 ///Populating function
 List<WorkoutTemplate> PopulateDefault() {

@@ -86,5 +86,5 @@ class VolumeHist{
   ///color of line graph
   final charts.Color Barcolor = charts.ColorUtil.fromDartColor(Colors.red);
 
-  VolumeHist( @required this.volume, @required this.MonthDay);
+  VolumeHist( this.volume, this.MonthDay);
 }

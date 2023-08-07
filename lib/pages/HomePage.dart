@@ -7,6 +7,7 @@ import 'package:lightweight/util/Profile.dart';
 import 'package:lightweight/util/DefaultProfileInit.dart';
 
 import 'GoalPage.dart';
+import 'LogPage.dart';
 import 'RepCalcPage.dart';
 
 /*
@@ -22,7 +23,7 @@ import 'RepCalcPage.dart';
 class HomePage extends StatefulWidget {
   HomePage({super.key, required this.title, required this.pf});
   final String title;
-  Profile pf;
+  final Profile pf;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -55,13 +56,11 @@ class _HomePageState extends State<HomePage> {
 
       ///Workout log button
       else if(_selectedIndex == 1) {
-        /*
         Navigator.push(
           context, MaterialPageRoute(
-          builder: (context) => BacklogPage(),
+          builder: (context) => LogPage(pf: widget.pf),
         ),
         );
-         */
       }
 
       ///Workouts button

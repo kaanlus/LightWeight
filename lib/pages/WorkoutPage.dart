@@ -5,8 +5,6 @@ import 'package:lightweight/util/Profile.dart';
 
 import '../util/DefaultProfileInit.dart';
 import '../util/Workout.dart';
-import 'HomePage.dart';
-
 /*
  * -----------------------------------------------
  * Workout Page

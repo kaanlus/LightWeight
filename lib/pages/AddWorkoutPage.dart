@@ -34,7 +34,6 @@ class AddWorkoutState extends State<AddWorkout> {
   Widget build(BuildContext context) {
     Profile pro = widget.pf;
     TextEditingController nameController = TextEditingController();
-    int indx = 0;
 
 
     return Scaffold(
