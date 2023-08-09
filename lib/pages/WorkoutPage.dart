@@ -91,6 +91,7 @@ class WorkoutPageState extends State<WorkoutPage> {
         List.generate(exercises[i].Set_goal, (j) => TextEditingController()));
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(workoutTitle),
       ),
