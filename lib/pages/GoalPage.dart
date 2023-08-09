@@ -23,14 +23,14 @@ class GoalPage extends StatefulWidget {
   GoalPageState createState() => GoalPageState();
 }
 
+String ToDate(DateTime dt){
+  String formatted;
+  formatted = '${dt.month.toString()}/${dt.day.toString()}/${dt.year.toString()}';
+  return formatted;
+}
+
 class GoalPageState extends State<GoalPage> {
-  
-  String ToDate(DateTime dt){
-    String formatted;
-    formatted = '${dt.month.toString()}/${dt.day.toString()}/${dt.year.toString()}';
-    return formatted;
-  }
-  
+
   @override
   Widget build(BuildContext context) {
     Profile pro = widget.pf;

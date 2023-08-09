@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lightweight/pages/GoalPage.dart';
 import 'package:lightweight/util/Profile.dart';
 
 /*
@@ -77,7 +78,7 @@ class LogPageState extends State<LogPage> {
                     child:
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
-                      child: Text('${widget.pf.Workout_log[widget.pf.Workout_log.length - (index + 1)].Get_workout_date().month}/${widget.pf.Workout_log[widget.pf.Workout_log.length - (index + 1)].Get_workout_date().day}/${widget.pf.Workout_log[widget.pf.Workout_log.length - (index + 1)].Get_workout_date().year}',
+                      child: Text('${ToDate(widget.pf.Workout_log[widget.pf.Workout_log.length - (index + 1)].Get_workout_date())}',
                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),),
                     ),
                   ),
