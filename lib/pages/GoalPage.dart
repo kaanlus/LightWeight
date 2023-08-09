@@ -24,6 +24,13 @@ class GoalPage extends StatefulWidget {
 }
 
 class GoalPageState extends State<GoalPage> {
+  
+  String ToDate(DateTime dt){
+    String formatted;
+    formatted = '${dt.month.toString()}/${dt.day.toString()}/${dt.year.toString()}';
+    return formatted;
+  }
+  
   @override
   Widget build(BuildContext context) {
     Profile pro = widget.pf;
@@ -73,28 +80,36 @@ class GoalPageState extends State<GoalPage> {
             padding: const EdgeInsets.only(top: 190, left: 15, right: 15, bottom: 360),
             child:
             ListView.builder(
-                itemCount: 10/*pro.Goals.length*/,
+                itemCount: pro.Goals.length,
                 itemBuilder: (BuildContext context, int index) {
-                return Row(
+                return
+                  pro.Goals[index].Is_ative ?
+                  Row(
                   children: [
                     const Icon(Icons.check_box_outline_blank,
                       color: Colors.red,
                       size: 50,),
 
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, bottom: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 5,bottom: 10),
                       child:
-                      SizedBox(
-                        width: 200,
-                        child:
-                        TextButton(
-                          child: Text('Goal place holder',
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),),
-                          onPressed: () {
+                        SizedBox(
+                          width: 200,
+                          child:
+                            TextButton(
+                              child:
+                              pro.Goals[index].Is_consistency ?
+                                Text('Go to the gym ${pro.Goals[index].Num_times_to_gym} times before ${ToDate(pro.Goals[index].Time_frame)}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
+                                  textAlign: TextAlign.center,):
+                                Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exerise} PR',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
+                                  textAlign: TextAlign.center,),
+                                onPressed: () {
 
-                          },
+                                },
+                              ),
                         ),
-                      ),
                     ),
                     SizedBox(
                       width: 120,
@@ -103,15 +118,18 @@ class GoalPageState extends State<GoalPage> {
                         padding: const EdgeInsets.only(left: 5),
                         child:
                         ElevatedButton(
-                            child: Text('Complete Goal',
+                            child: const Text('Complete Goal',
                               textAlign: TextAlign.center,),
                         onPressed: () {
-
+                            setState(() {
+                              pro.Goals[index].Deactivate();
+                            });
                         }),
                       ),
                     ),
                   ],
-                );
+                ):
+                const Row();
               }
               ),
             ),
@@ -128,25 +146,33 @@ class GoalPageState extends State<GoalPage> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 500, left: 15, right: 15, bottom: 40),
+            padding: const EdgeInsets.only(top: 500, left: 15, right: 15, bottom: 30),
             child:
             ListView.builder(
-                itemCount: 10/*pro.Goals.length*/,
+                itemCount: pro.Goals.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Row(
+                  return
+                    !pro.Goals[index].Is_ative ?
+                    Row(
                     children: [
                       const Icon(Icons.check_box_outlined,
                         color: Colors.red,
                         size: 50,),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, bottom: 10),
+                        padding: const EdgeInsets.only(left: 10, top: 5,bottom: 10),
                         child:
                         SizedBox(
                           width: 200,
                           child:
                           TextButton(
-                            child: Text('Goal place holder',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),),
+                            child:
+                            pro.Goals[index].Is_consistency ?
+                            Text('Go to the gym ${pro.Goals[index].Num_times_to_gym} times before ${ToDate(pro.Goals[index].Time_frame)}',
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
+                              textAlign: TextAlign.center,):
+                            Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exerise} PR',
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
+                              textAlign: TextAlign.center,),
                             onPressed: () {
 
                             },
@@ -154,7 +180,8 @@ class GoalPageState extends State<GoalPage> {
                         ),
                       ),
                     ],
-                  );
+                  ):
+                  Row();
                 }
             ),
           ),

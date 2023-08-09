@@ -1,4 +1,5 @@
 import 'package:lightweight/util/Exercise.dart';
+import 'package:lightweight/util/Goal.dart';
 import 'package:lightweight/util/Workout.dart';
 import 'package:lightweight/util/Profile.dart';
 
@@ -8,6 +9,7 @@ Profile CreateDefault(){
   defaultUserProfile.Volume_history = PopulateVolume();
   defaultUserProfile.Saved_exercises = PopulateExercises();
   defaultUserProfile.Workout_log = PopulateLog();
+  defaultUserProfile.Goals = PopulateGoals();
   return defaultUserProfile;
 }
 
@@ -20,6 +22,16 @@ List<ExerciseTemplate> PopulateExercises(){
   etl.add(ExerciseTemplate('Leg Extensions', 4, 10 , 'Cable Machine Leg extensions', 'Quadriceps Femoris'));
 
   return etl;
+}
+
+List<Goal> PopulateGoals() {
+  List<Goal> lgs = [];
+  lgs.add(Goal(true, 2, DateTime.utc(2023,08,29), '', 0));
+  lgs.add(Goal(true, 4, DateTime.utc(2023,05,01), '', 0));
+  lgs[1].Deactivate();
+  lgs.add(Goal(false, 2, DateTime.utc(0000), 'Bench Press', 200));
+  lgs.add(Goal(false, 2, DateTime.utc(000), 'Leg Extensions', 160));
+  return lgs;
 }
 
 List<WorkoutRecord> PopulateLog(){
