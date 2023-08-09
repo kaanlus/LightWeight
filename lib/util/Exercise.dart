@@ -90,15 +90,15 @@ class ExerciseRecord extends ExerciseTemplate {
   ///Returns weight used for a given set
   double Get_weight_of_set(int index){ return this.Weight_for_set[index]; }
 
-  ///Increase the number of sets done by one, limited to 4
+  ///Increase the number of sets done by one
   Add_one_set(){
       this.Set_goal++;
   }
 
   ///Saves active set reps and weight to the record
   Save_active_set(double weight, int reps){
-    this.Sets_done++;
-    Weight_for_set.insert(Sets_done, weight);
-    Rep_for_Set.insert(Sets_done, reps);
+    Sets_done++;
+    Weight_for_set.add(weight);
+    Rep_for_Set.add(reps);
   }
 }

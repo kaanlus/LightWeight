@@ -57,24 +57,38 @@ class WorkoutPageState extends State<WorkoutPage> {
     ///Current profile
     Profile pro = widget.pf;
 
+
+
     ///If else tree to select title of workout based on context from last page
-    if(widget.index >= 0) {
-      wt = pro.Saved_templates[widget.index];
-      workoutTitle = wt.Workout_name;
-      exercises = wt.Exercise_templates;
-    } else if(widget.index == -2){
+    if(widget.index == -2){
       wt = defaultTemplates[0];
       workoutTitle = wt.Workout_name;
       exercises = wt.Exercise_templates;
+      wr = wt.Create_record_from();
     } else if(widget.index == -3){
       wt = defaultTemplates[1];
       workoutTitle = wt.Workout_name;
       exercises = wt.Exercise_templates;
+      wr = wt.Create_record_from();
     } else if(widget.index == -4){
       wt = defaultTemplates[2];
       workoutTitle = wt.Workout_name;
       exercises = wt.Exercise_templates;
+      wr = wt.Create_record_from();
+    } else {
+      wt = pro.Saved_templates[widget.index];
+      workoutTitle = wt.Workout_name;
+      exercises = wt.Exercise_templates;
+      wr = wt.Create_record_from();
     }
+
+    List<List<TextEditingController>> repControllers ;
+    repControllers = List.generate(exercises.length, (i) =>
+        List.generate(exercises[i].Set_goal, (j) => TextEditingController()));
+
+    List<List<TextEditingController>> weightControllers ;
+    weightControllers = List.generate(exercises.length, (i) =>
+        List.generate(exercises[i].Set_goal, (j) => TextEditingController()));
 
     return Scaffold(
       appBar: AppBar(
@@ -135,7 +149,7 @@ class WorkoutPageState extends State<WorkoutPage> {
                             ///generates a set of entry fields for each set of a an exercise
                             Column(
                             children:
-                              List.generate(exercises[index].Set_goal, (index) {
+                              List.generate(exercises[index].Set_goal, (ind) {
                                 return
                                   Row(
                                       children: [
@@ -143,7 +157,7 @@ class WorkoutPageState extends State<WorkoutPage> {
                                         Padding(
                                           padding: const EdgeInsets.only(left: 30.0 , top: 15, bottom: 15),
                                           child:
-                                            Text('Set ${index + 1}',
+                                            Text('Set ${ind + 1}',
                                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                             ),
                                         ),
@@ -156,6 +170,7 @@ class WorkoutPageState extends State<WorkoutPage> {
                                               width: 75,
                                               height: 30,
                                               child: TextFormField(
+                                                      controller: repControllers[index][ind],
                                                       textAlign: TextAlign.center,
                                                       decoration: InputDecoration(
                                                         contentPadding: const EdgeInsets.all(0),
@@ -174,6 +189,7 @@ class WorkoutPageState extends State<WorkoutPage> {
                                             width: 75,
                                             height: 30,
                                             child: TextFormField(
+                                              controller: weightControllers[index][ind],
                                               textAlign: TextAlign.center,
                                               decoration: const InputDecoration(
                                                 contentPadding: EdgeInsets.all(0),
@@ -183,9 +199,23 @@ class WorkoutPageState extends State<WorkoutPage> {
                                             ),
                                           ),
                                         ),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 15),
+                                          child:
+                                            SizedBox(
+                                              width: 75,
+                                              height: 30,
+                                              child:
+                                              ElevatedButton(child: const Text('Save'),
+                                              onPressed: () {
+
+                                              }),
+                                            ),
+                                        ),
                                       ],
                                   );
-                              }
+                                }
                               ),
                             ),
                             Padding(
@@ -223,6 +253,7 @@ class WorkoutPageState extends State<WorkoutPage> {
               ElevatedButton(
                   child: const Text('Finish Workout'),
                   onPressed: ()  {
+                    widget.pf.Workout_log.add(wr);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: pro)),
