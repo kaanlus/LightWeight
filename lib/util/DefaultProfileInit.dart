@@ -43,20 +43,8 @@ List<WorkoutRecord> PopulateLog(){
   er1.Rep_for_Set = [10, 10, 10];
   er1.Weight_for_set = [190, 190, 190];
   er1.Sets_done = 3;
-  ExerciseTemplate et2 = ExerciseTemplate('Chest Flys', 3, 10 , 'Dumbbell flys', 'Pectoralis Major');
-  ExerciseRecord er2 = et2.Create_record_from();
-  er2.Rep_for_Set = [10, 10, 10];
-  er2.Weight_for_set = [50, 50, 50];
-  er2.Sets_done = 3;
-  ExerciseTemplate et3 = ExerciseTemplate('Triceps Extensions', 4, 10 , 'Dumbbell overhead triceps Extensions', 'Triceps Brachii');
-  ExerciseRecord er3 = et3.Create_record_from();
-  er3.Rep_for_Set = [10, 10, 10];
-  er3.Weight_for_set = [60, 60, 60];
-  er3.Sets_done = 3;
   CaTR.Exercise_records.add(er1);
-  CaTR.Exercise_records.add(er2);
-  CaTR.Exercise_records.add(er3);
-  CaTR.Workout_date = DateTime.now();
+  CaTR.Workout_date = DateTime.utc(2023, 3, 25);
   lwr.add(CaTR);
   return lwr;
 }
@@ -113,10 +101,7 @@ List<WorkoutTemplate> PopulateDefault() {
 ///populates the sample volume history data
 List<VolumeHist> PopulateVolume(){
   List<VolumeHist> vhl = [];
-  vhl.add(VolumeHist(10800, DateTime.utc(2023,1,1)));
-  vhl.add(VolumeHist(11600, DateTime.utc(2023,4,1)));
-  vhl.add(VolumeHist(12070, DateTime.utc(2023,6,6)));
-  vhl.add(VolumeHist(9400, DateTime.utc(2023,10,4)));
+  vhl.add(VolumeHist(5700 , DateTime.utc(2023,3,25)));
   return vhl;
 }
 

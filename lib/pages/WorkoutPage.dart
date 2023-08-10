@@ -210,7 +210,17 @@ class WorkoutPageState extends State<WorkoutPage> {
                                               child:
                                               ElevatedButton(child: const Text('Save'),
                                               onPressed: () {
-
+                                                if(wr.Exercise_records[index].Rep_for_Set.length == ind){
+                                                  int repDone = int.parse(repControllers[index][ind].text);
+                                                  double weightUsed = double.parse(weightControllers[index][ind].text);
+                                                  wr.Exercise_records[index].Save_active_set(weightUsed, repDone);
+                                                } else {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text('Save Set ${wr.Exercise_records[index].Rep_for_Set.length + 1} First'),
+                                                    ),
+                                                  );
+                                                }
                                               }),
                                             ),
                                         ),
@@ -254,7 +264,14 @@ class WorkoutPageState extends State<WorkoutPage> {
               ElevatedButton(
                   child: const Text('Finish Workout'),
                   onPressed: ()  {
-                    widget.pf.Workout_log.add(wr);
+                    double vol = 0;
+                    for(int i = 0; i < wr.Exercise_records.length; i++){
+                      for(int j = 0; j < wr.Exercise_records[i].Sets_done; j++){
+                        vol = vol + (wr.Exercise_records[i].Weight_for_set[j] * wr.Exercise_records[i].Rep_for_Set[j]);
+                      }
+                    }
+                    pro.Volume_history.add(VolumeHist(vol.toInt(), wr.Get_workout_date()));
+                    pro.Workout_log.add(wr);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: pro)),
