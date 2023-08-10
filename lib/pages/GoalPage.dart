@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lightweight/pages/AddGoalPage.dart';
 
+import '../util/Goal.dart';
 import '../util/Profile.dart';
 
 /*
@@ -58,8 +60,15 @@ class GoalPageState extends State<GoalPage> {
               padding: const EdgeInsets.only(top: 80.0 ),
               child:
               ElevatedButton( child: const Text('\t\t\tCreate New Goal\t\t\t'),
-                  onPressed: () {
-
+                  onPressed: () async {
+                    final Goal gl = await Navigator.push(
+                      context, MaterialPageRoute(
+                      builder: (context) => AddGoalPage(pf: pro),
+                    ),
+                    );
+                    setState(() {
+                      pro.Goals.add(gl);
+                    });
                   }
               ),
             ),
@@ -77,7 +86,7 @@ class GoalPageState extends State<GoalPage> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 190, left: 15, right: 15, bottom: 360),
+            padding: const EdgeInsets.only(top: 190, left: 15, right: 15, bottom: 335),
             child:
             ListView.builder(
                 itemCount: pro.Goals.length,
