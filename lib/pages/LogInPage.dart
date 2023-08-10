@@ -50,10 +50,10 @@ class LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(top: 100, left: 20, right: 20),
                   child:
                     ListView.builder(
-                        itemCount: 2,
+                        itemCount: 0,
                         itemBuilder: (BuildContext context, int index){
                           return ElevatedButton(
-                            child: Text('Place holder'),
+                            child: Text(''),
                             onPressed: () {},
                           );
                         }),
