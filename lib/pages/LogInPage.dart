@@ -72,7 +72,9 @@ class LoginPageState extends State<LoginPage> {
                         itemBuilder: (BuildContext context, int index){
                           return ElevatedButton(
                             child: Text(profiles[index].Get_name()),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: profiles[index])));
+                            },
                           );
                         }),
                 ),
@@ -177,7 +179,7 @@ class LoginPageState extends State<LoginPage> {
       final file = await localFile;
       String contents = await file.readAsString();
       List<dynamic> jsonData = json.decode(contents);
-      return jsonData.map((profile) => Profile(profile['name'])).toList();
+      return jsonData.map((profile) => Profile.fromJson(profile)).toList();
     } catch (e) {
       return [];
     }

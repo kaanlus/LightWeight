@@ -42,6 +42,18 @@ class Profile {
   ///Constructor
   Profile(this.Users_name);
 
+  // A factory constructor to create a Profile from JSON
+  factory Profile.fromJson(Map<String, dynamic> jsonData) {
+    //Extract name from JSON
+    String extractedName = jsonData['name'];
+
+
+    //Construct and return the Profile object using extracted data
+    Profile profile = Profile(extractedName);
+
+    return profile;
+  }
+
   ///Returns user name
   Get_name(){ return this.Users_name; }
 
