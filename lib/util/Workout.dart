@@ -46,6 +46,27 @@ class WorkoutTemplate {
     }
     return WorkoutRecord(this.Workout_name, ER);
   }
+
+
+  //IO
+  Map<String, dynamic> toJson() {
+    return {
+      'workoutName': Workout_name,
+      'exerciseTemplates': Exercise_templates.map((et) => et.toJson()).toList(),
+    };
+  }
+
+  factory WorkoutTemplate.fromJson(Map<String, dynamic> jsonData) {
+    WorkoutTemplate wt = WorkoutTemplate(jsonData['workoutName']);
+
+    if (jsonData.containsKey('exerciseTemplates')) {
+      wt.Exercise_templates = (jsonData['exerciseTemplates'] as List)
+          .map((etJson) => ExerciseTemplate.fromJson(etJson))
+          .toList();
+    }
+
+    return wt;
+  }
 }
 
 /*
@@ -85,4 +106,34 @@ class WorkoutRecord extends WorkoutTemplate {
 
   ///Returns date of the workout
   DateTime Get_workout_date(){ return Workout_date; }
+
+  //IO
+  @override
+  Map<String, dynamic> toJson() {
+    // Get the JSON format from WorkoutTemplate
+    Map<String, dynamic> json = super.toJson();
+
+    // Add WorkoutRecord specific details
+    json['workoutDate'] = Workout_date.toIso8601String();
+    json['exerciseRecords'] = Exercise_records.map((er) => er.toJson()).toList();
+
+    return json;
+  }
+
+  factory WorkoutRecord.fromJson(Map<String, dynamic> jsonData) {
+    // Initialize using super
+    WorkoutRecord wr = WorkoutRecord(jsonData['workoutName'], []);
+
+    if (jsonData.containsKey('exerciseRecords')) {
+      wr.Exercise_records = (jsonData['exerciseRecords'] as List)
+          .map((erJson) => ExerciseRecord.fromJson(erJson))
+          .toList();
+    }
+
+    if (jsonData.containsKey('workoutDate')) {
+      wr.Workout_date = DateTime.parse(jsonData['workoutDate']);
+    }
+
+    return wr;
+  }
 }

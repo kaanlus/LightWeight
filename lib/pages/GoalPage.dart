@@ -92,7 +92,7 @@ class GoalPageState extends State<GoalPage> {
                 itemCount: pro.Goals.length,
                 itemBuilder: (BuildContext context, int index) {
                 return
-                  pro.Goals[index].Is_ative ?
+                  pro.Goals[index].Is_active ?
                   Row(
                   children: [
                     const Icon(Icons.check_box_outline_blank,
@@ -111,7 +111,7 @@ class GoalPageState extends State<GoalPage> {
                                 Text('Go to the gym ${pro.Goals[index].Num_times_to_gym} times before ${ToDate(pro.Goals[index].Time_frame)}',
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
                                   textAlign: TextAlign.center,):
-                                Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exerise} PR',
+                                Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exercise} PR',
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
                                   textAlign: TextAlign.center,),
                                 onPressed: () {
@@ -161,7 +161,7 @@ class GoalPageState extends State<GoalPage> {
                 itemCount: pro.Goals.length,
                 itemBuilder: (BuildContext context, int index) {
                   return
-                    !pro.Goals[index].Is_ative ?
+                    !pro.Goals[index].Is_active ?
                     Row(
                     children: [
                       const Icon(Icons.check_box_outlined,
@@ -179,7 +179,7 @@ class GoalPageState extends State<GoalPage> {
                             Text('Go to the gym ${pro.Goals[index].Num_times_to_gym} times before ${ToDate(pro.Goals[index].Time_frame)}',
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
                               textAlign: TextAlign.center,):
-                            Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exerise} PR',
+                            Text('Hit a ${pro.Goals[index].Weight_goal.toInt()} ${pro.Goals[index].Exercise} PR',
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
                               textAlign: TextAlign.center,),
                             onPressed: () {

@@ -51,7 +51,54 @@ class Profile {
     //Construct and return the Profile object using extracted data
     Profile profile = Profile(extractedName);
 
+    if (jsonData.containsKey('volumeHistories')) {
+      profile.Volume_history = (jsonData['volumeHistories'] as List)
+          .map((vhJson) => VolumeHist.fromJson(vhJson))
+          .toList();
+    }
+
+    if (jsonData.containsKey('goals')) {
+      profile.Goals = (jsonData['goals'] as List)
+          .map((gJson) => Goal.fromJson(gJson))
+          .toList();
+    }
+
+    if (jsonData.containsKey('goalProgress')) {
+      profile.Goal_progress = List<int>.from(jsonData['goalProgress']);
+    }
+
+    if (jsonData.containsKey('savedTemplates')) {
+      profile.Saved_templates = (jsonData['savedTemplates'] as List)
+          .map((wtJson) => WorkoutTemplate.fromJson(wtJson))
+          .toList();
+    }
+
+    if (jsonData.containsKey('workoutLog')) {
+      profile.Workout_log = (jsonData['workoutLog'] as List)
+          .map((wrJson) => WorkoutRecord.fromJson(wrJson))
+          .toList();
+    }
+
+    if (jsonData.containsKey('savedExercises')) {
+      profile.Saved_exercises = (jsonData['savedExercises'] as List)
+          .map((etJson) => ExerciseTemplate.fromJson(etJson))
+          .toList();
+    }
+
     return profile;
+  }
+
+  //Saves relevent profile information
+  Map<String, dynamic> toJson() {
+    return {
+      'name': Get_name(),
+      'volumeHistories': Volume_history.map((vh) => vh.toJson()).toList(),
+      'goals': Goals.map((g) => g.toJson()).toList(),
+      'goalProgress': Goal_progress,
+      'savedTemplates': Saved_templates.map((wt) => wt.toJson()).toList(),
+      'workoutLog': Workout_log.map((wr) => wr.toJson()).toList(),
+      'savedExercises': Saved_exercises.map((et) => et.toJson()).toList(),
+    };
   }
 
   ///Returns user name
@@ -86,13 +133,6 @@ class Profile {
   ///Returns list of previous saved workouts
   Get_workout_history(){ return Workout_log; }
 
-  //Saves relevent profile information
-  Map<String, dynamic> toJson() {
-    return {
-      'name': Get_name(),
-    };
-  }
-
 }
 
 class VolumeHist{
@@ -105,4 +145,20 @@ class VolumeHist{
   final charts.Color Barcolor = charts.ColorUtil.fromDartColor(Colors.red);
 
   VolumeHist( this.volume, this.MonthDay);
+
+  // Convert VolumeHist to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'volume': volume,
+      'monthDay': MonthDay.toIso8601String(),
+    };
+  }
+
+  // A factory constructor to create VolumeHist from JSON
+  factory VolumeHist.fromJson(Map<String, dynamic> jsonData) {
+    return VolumeHist(
+      jsonData['volume'],
+      DateTime.parse(jsonData['monthDay']),
+    );
+  }
 }

@@ -48,6 +48,28 @@ class ExerciseTemplate{
      return ExerciseRecord(this.Exercise_name, this.Set_goal, this.Set_goal ,this.Exercise_description, this.Target_muscle);
    }
 
+   // Convert ExerciseTemplate to JSON
+   Map<String, dynamic> toJson() {
+     return {
+       'exerciseName': Exercise_name,
+       'setGoal': Set_goal,
+       'repGoal': Rep_goal,
+       'description': Exercise_description,
+       'targetMuscle': Target_muscle
+     };
+   }
+
+   // Create ExerciseTemplate from JSON
+   factory ExerciseTemplate.fromJson(Map<String, dynamic> jsonData) {
+     return ExerciseTemplate(
+       jsonData['exerciseName'],
+       jsonData['setGoal'],
+       jsonData['repGoal'],
+       jsonData['description'],
+       jsonData['targetMuscle'],
+     );
+   }
+
 }
 
 /*
@@ -100,5 +122,42 @@ class ExerciseRecord extends ExerciseTemplate {
     Sets_done++;
     Weight_for_set.add(weight);
     Rep_for_Set.add(reps);
+  }
+
+  // Convert ExerciseRecord to JSON (Override it to expand upon the parent's method)
+  @override
+  Map<String, dynamic> toJson() {
+    var json = super.toJson();
+    json.addAll({
+      'setsDone': Sets_done,
+      'weightForSet': Weight_for_set,
+      'repForSet': Rep_for_Set,
+    });
+    return json;
+  }
+
+  // Create ExerciseRecord from JSON
+  factory ExerciseRecord.fromJson(Map<String, dynamic> jsonData) {
+    var record = ExerciseRecord(
+      jsonData['exerciseName'],
+      jsonData['setGoal'],
+      jsonData['repGoal'],
+      jsonData['description'],
+      jsonData['targetMuscle'],
+    );
+
+    if (jsonData.containsKey('setsDone')) {
+      record.Sets_done = jsonData['setsDone'];
+    }
+
+    if (jsonData.containsKey('weightForSet')) {
+      record.Weight_for_set = List<double>.from(jsonData['weightForSet']);
+    }
+
+    if (jsonData.containsKey('repForSet')) {
+      record.Rep_for_Set = List<int>.from(jsonData['repForSet']);
+    }
+
+    return record;
   }
 }
