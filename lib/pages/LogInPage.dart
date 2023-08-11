@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'HomePage.dart';
+import '../util/Profile_IO.dart';
 
 /*
  * -----------------------------------------------
@@ -49,7 +50,7 @@ class LoginPageState extends State<LoginPage> {
         title: const Text('Log In'),
       ),
       body: Stack(
-          children : [
+          children: [
             const Align(
               alignment: Alignment.topCenter,
               child:
@@ -64,20 +65,23 @@ class LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.topCenter,
               child:
-                Padding(
-                  padding: EdgeInsets.only(top: 100, left: 20, right: 20),
-                  child:
-                    ListView.builder(
-                        itemCount: profiles.length,
-                        itemBuilder: (BuildContext context, int index){
-                          return ElevatedButton(
-                            child: Text(profiles[index].Get_name()),
-                            onPressed: () {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: profiles[index])));
-                            },
-                          );
-                        }),
-                ),
+              Padding(
+                padding: EdgeInsets.only(top: 100, left: 20, right: 20),
+                child:
+                ListView.builder(
+                    itemCount: profiles.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ElevatedButton(
+                        child: Text(profiles[index].Get_name()),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (context) =>
+                              HomePage(title: 'Light Weight Home',
+                                  pf: profiles[index])));
+                        },
+                      );
+                    }),
+              ),
             ),
 
             Align(
@@ -86,13 +90,15 @@ class LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 740.0),
                 child:
-                  ElevatedButton(
-                    child: const Text('default user ( Testing )'),
-                    onPressed: () {
-                      Profile user = CreateDefault();
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: user)));
-                    },
-                  ),
+                ElevatedButton(
+                  child: const Text('default user ( Testing )'),
+                  onPressed: () {
+                    Profile user = CreateDefault();
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(title: 'Light Weight Home', pf: user)));
+                  },
+                ),
               ),
             ),
 
@@ -110,7 +116,8 @@ class LoginPageState extends State<LoginPage> {
                     // Read existing profiles
                     readProfiles().then((profiles) {
                       // Check if the name already exists or is empty
-                      if (profiles.any((profile) => profile.Get_name() == user.Get_name())
+                      if (profiles.any((profile) =>
+                      profile.Get_name() == user.Get_name())
                           || nameController.text.trim() == '') {
                         // Show a dialog to inform the user
                         showDialog(
@@ -118,7 +125,8 @@ class LoginPageState extends State<LoginPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text('Name Exists or Invalid Name!'),
-                              content: Text('A user with this name already exists or the name does not contain any characters. Please choose another name.'),
+                              content: Text(
+                                  'A user with this name already exists or the name does not contain any characters. Please choose another name.'),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('OK'),
@@ -133,7 +141,9 @@ class LoginPageState extends State<LoginPage> {
                       } else {
                         // Save the new profile and navigate
                         writeProfile(user).then((_) {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(title: 'Light Weight Home', pf: user)));
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                              builder: (context) => HomePage(
+                                  title: 'Light Weight Home', pf: user)));
                         });
                       }
                     });
@@ -166,30 +176,5 @@ class LoginPageState extends State<LoginPage> {
           ]
       ),
     );
-  }
-
-  //Path Loading functionalities
-  Future<File> get localFile async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/profiles.json');
-  }
-
-  Future<List<Profile>> readProfiles() async {
-    try {
-      final file = await localFile;
-      String contents = await file.readAsString();
-      List<dynamic> jsonData = json.decode(contents);
-      return jsonData.map((profile) => Profile.fromJson(profile)).toList();
-    } catch (e) {
-      return [];
-    }
-  }
-
-  Future<File> writeProfile(Profile profile) async {
-    final directory = await getApplicationDocumentsDirectory();
-    List<Profile> profiles = await readProfiles();
-    profiles.add(profile);
-    final file = await localFile;
-    return file.writeAsString(json.encode(profiles.map((e) => e.toJson()).toList()));
   }
 }
