@@ -74,6 +74,12 @@ class Profile {
   ///Returns list of previous saved workouts
   Get_workout_history(){ return Workout_log; }
 
+  //Saves relevent profile information
+  Map<String, dynamic> toJson() {
+    return {
+      'name': Get_name(),
+    };
+  }
 
 }
 
