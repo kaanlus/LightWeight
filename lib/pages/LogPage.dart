@@ -29,7 +29,7 @@ class LogPageState extends State<LogPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('1RM Calculator'),
+        title: const Text('Workout Log'),
       ),
       body:
         Stack(
