@@ -30,7 +30,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:lightweight/pages/LogInPage.dart';
-
+import './util/Profile_IO.dart';
 
 
 //starts app in the main function
@@ -47,6 +47,7 @@ void main() => runApp(const MyApp());
  */
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  static final ProfileObserver profileObserver = ProfileObserver();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
+        navigatorObservers: [profileObserver],
       //call to home page
       home: LoginPage()
     );

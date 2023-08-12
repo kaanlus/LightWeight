@@ -17,7 +17,6 @@ import '../util/Profile_IO.dart';
  */
 class LoginPage extends StatefulWidget {
 
-
   LoginPage({
     Key? key,
   }) : super(key: key);
@@ -74,6 +73,7 @@ class LoginPageState extends State<LoginPage> {
                       return ElevatedButton(
                         child: Text(profiles[index].Get_name()),
                         onPressed: () {
+                          ProfileObserver.profile = profiles[index];
                           Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (context) =>
                               HomePage(title: 'Light Weight Home',
@@ -141,6 +141,7 @@ class LoginPageState extends State<LoginPage> {
                       } else {
                         // Save the new profile and navigate
                         writeProfile(user).then((_) {
+                          ProfileObserver.profile = user;
                           Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context) => HomePage(
                                   title: 'Light Weight Home', pf: user)));
